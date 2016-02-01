@@ -52,7 +52,7 @@ const samosaSearchAPI = {
         }
     },
     getMapFromLocation(latitude, longitude, saleList, width){
-        let httpSrc = "http://dev.virtualearth.net/REST/V1/Imagery/Map/Road";
+        let httpSrc = "https://dev.virtualearth.net/REST/V1/Imagery/Map/Road";
         let key = "AgvN-k6j9HKA9D-iYt0dqy7WTIvRA5Qiqd9EOFOh3McCI1_IJE4QjHT8KojWfvdv";
         let pos = null;
         let saleLocations = saleList.reduce(function(prev, next){
@@ -104,7 +104,7 @@ const samosaSearchAPI = {
         return this.keyMap;
     },
     getClosestSale(locations){
-        let httpSrc = "http://matrix.mapzen.com/one_to_many?json";
+        let httpSrc = "https://matrix.mapzen.com/one_to_many?json";
         let key = "matrix-K69EU2Q";
         locations = locations || `[{"lat":40.744014,"lon":-73.990508},{"lat":40.739735,"lon":-73.979713}]`;
         let url = `${httpSrc}={"locations":${locations},"costing":"pedestrian"}&id=mosa&api_key=${key}`;
