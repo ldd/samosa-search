@@ -1,3 +1,6 @@
+/*eslint-env node*/
+var webpack = require('webpack');
+
 module.exports = {
     entry: './app/App.js',
     output:{
@@ -31,5 +34,14 @@ module.exports = {
             }
         }
         ]
-    }
+    },
+    plugins:[
+        new webpack.DefinePlugin({
+            DEBUG: process.env.NODE_ENV !== 'production',
+            PRODUCTION: process.env.NODE_ENV === 'production'
+            // Make sure FIREBASE_URL, BING_KEY, MAPZEN_MATRIX_KEY are defined
+            // when using webpack with the option --define "key"="value".
+            // They will not be defined here.
+        }),
+    ]
 };

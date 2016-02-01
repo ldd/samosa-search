@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "description": "Samosa Search App",
   "main": "public/index.html",
-  "scripts": {
-    "start": "webpack-dev-server"
-  },
   "author": "ldd",
   "license": "MIT",
   "devDependencies": {
