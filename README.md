@@ -1,5 +1,7 @@
 # Samosa Search App
 
+[![Join the chat at https://gitter.im/ldd/samosa-search](https://badges.gitter.im/ldd/samosa-search.svg)](https://gitter.im/ldd/samosa-search?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 To use, simply visit ldd.github.io/samosa-search
 
 This simple webapp uses react and a firebase backend to show the closest samosa sales on campus

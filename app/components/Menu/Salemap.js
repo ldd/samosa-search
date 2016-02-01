@@ -36,7 +36,6 @@ class Salemap extends React.Component{
         let long = this.state.longitude;
         let mapEl = <p>Loading Map...</p>;
         if (lat !== null && long !== null){
-            SamosaSearchAPI.getClosestSale();
             let mapSrc = SamosaSearchAPI.getMapFromLocation(lat,
                 long, this.state.saleList, this.getMapWidth());
             mapEl = <img width="90%" style={{marginTop: 5}} src={mapSrc} alt="Map"/>

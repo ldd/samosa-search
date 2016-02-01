@@ -35,31 +35,22 @@ class Sale extends React.Component{
         }
     }
     createSale(){
-        let history = this.props.history;
         base.push('props', {
-            data: this.state.sale,
-            then(){
-                history.pushState(null, '/');
-            }
+            data: this.state.sale
         });
+        this.props.history.pushState(null, '/');
     }
     updateSale(){
-        let history = this.props.history;
         base.post(`props/${this.props.params.saleId}`, {
-            data: this.state.sale,
-            then(){
-                history.pushState(null, '/');
-            }
+            data: this.state.sale
         });
+        this.props.history.pushState(null, '/');
     }
     deleteSale(){
-        let history = this.props.history;
         base.post(`props/${this.props.params.saleId}`, {
-            data: null,
-            then(){
-                history.pushState(null, '/');
-            }
+            data: null
         });
+        this.props.history.pushState(null, '/');
     }
     render(){
         let action = this.props.location.query.action;
