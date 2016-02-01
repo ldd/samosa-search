@@ -18,7 +18,7 @@ class Sale extends React.Component{
                 price: 0,
                 time: 0
             },
-            info: ""
+            info: ''
         };
     }
     componentDidMount(){
@@ -57,7 +57,7 @@ class Sale extends React.Component{
         let isCreating = action === AppConstants.CREATE_SALE;
         let isUpdating = action === AppConstants.UPDATE_SALE;
         let isEnabled = isCreating || isUpdating;
-        let nextPath = isCreating? '/': '/list'
+        let nextPath = isCreating? '/': '/list';
         return (
         <Form>
             <LocationSelector
@@ -67,7 +67,7 @@ class Sale extends React.Component{
                         {sale: prevState.sale}
                     )
                 })}
-                value={""+this.state.sale.loc}
+                value={''+this.state.sale.loc}
                 isEnabled={isEnabled}/>
             <PriceSelector/>
             <TimeSelector
@@ -77,14 +77,14 @@ class Sale extends React.Component{
                         {sale: prevState.sale}
                     )
                 })}
-                value={""+this.state.sale.time}
+                value={''+this.state.sale.time}
                 isEnabled={isEnabled}/>
 
-            <div className="mui--no-user-select">
+            <div>
                 <label>information</label>
             <TextareaInput
                 value={this.state.info}
-                disabled={isEnabled? "" : "disabled"}
+                disabled={isEnabled? '' : 'disabled'}
                 onChange={(el)=> this.setState({info: el.target.value})}
             />
             </div>

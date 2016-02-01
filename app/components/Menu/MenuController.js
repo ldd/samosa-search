@@ -10,9 +10,9 @@ class Menu extends React.Component{
         let isLoggedIn = baseUtils.isLoggedIn();
         let history = this.props.history;
         return(
-            <div  className="mui--text-center" style={{maxWidth: "100%"}}>
+            <div  className='mui--text-center' style={{maxWidth: '100%'}}>
                 <SaleMap />
-                {!isLoggedIn && <Login handler={() =>(base.authWithOAuthPopup("facebook", ()=> {history.pushState(null, '/')}))}/>}
+                {!isLoggedIn && <Login handler={() =>(base.authWithOAuthPopup('facebook', ()=> {history.pushState(null, '/')}))}/>}
                 <DefaultOptions history={history}/>
                 {isLoggedIn && <LoggedUserOptions history={history}/>}
 

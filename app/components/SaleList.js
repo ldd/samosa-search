@@ -15,7 +15,7 @@ class SaleList extends React.Component{
         this.ref = base.bindToState('props', {
             context: this,
             asArray: true,
-            state: 'list',
+            state: 'list'
         });
     }
     componentWillUnmount(){

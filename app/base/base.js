@@ -14,6 +14,6 @@ const baseUtils = {
         uid = uid || null;
         return uid !== null;
     }
-}
+};
 
 export {base, baseUtils};

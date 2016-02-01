@@ -22,7 +22,7 @@ class Salemap extends React.Component{
         this.ref = base.bindToState('props', {
             context: this,
             asArray: true,
-            state: 'saleList',
+            state: 'saleList'
         });
     }
     componentWillUnmount(){
@@ -38,7 +38,7 @@ class Salemap extends React.Component{
         if (lat !== null && long !== null){
             let mapSrc = SamosaSearchAPI.getMapFromLocation(lat,
                 long, this.state.saleList, this.getMapWidth());
-            mapEl = <img width="90%" style={{marginTop: 5}} src={mapSrc} alt="Map"/>
+            mapEl = <img width='90%' style={{marginTop: 5}} src={mapSrc} alt='Map'/>
         }
         return(
             <div >

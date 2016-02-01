@@ -14,31 +14,6 @@ const samosaSearchAPI = {
         lon: -73.57616
     },
     keyMap: {},
-    createSale(options){
-        this.saleList = this.saleList.concat({
-            id: ""+this.i++,
-            saleLocation: options.saleLocation,
-            price: options.price,
-            time: options.time,
-            info: options.info,
-            confirmations: 0
-        });
-    },
-    getSale(saleId){
-        return this.saleList.find((sale)=> (sale.id === saleId));
-    },
-    updateSale(saleId, props){
-        let sale = this.saleList.find((sale)=> (sale.id === saleId));
-        sale.saleLocation = props.saleLocation;
-        sale.price= props.price;
-        sale.time = props.time;
-        sale.info = props.info;
-        sale.confirmations = 0;
-    },
-    removeSale(saleId){
-        this.saleList = this.saleList.filter((sale)=> (sale.id !== saleId));
-    },
-
     getLocation(success, error){
         if(!navigator.geolocation) {
             return null;
@@ -46,14 +21,14 @@ const samosaSearchAPI = {
         else{
             return navigator.geolocation.getCurrentPosition((pos)=> {
                 this.location.lat = pos.coords.latitude;
-                this.location.lon = pos.coords.longitude
+                this.location.lon = pos.coords.longitude;
                 success(pos);
             }, error);
         }
     },
     getMapFromLocation(latitude, longitude, saleList, width){
-        let httpSrc = "https://dev.virtualearth.net/REST/V1/Imagery/Map/Road";
-        let key = "AgvN-k6j9HKA9D-iYt0dqy7WTIvRA5Qiqd9EOFOh3McCI1_IJE4QjHT8KojWfvdv";
+        let httpSrc = 'https://dev.virtualearth.net/REST/V1/Imagery/Map/Road';
+        let mapKey = 'AgvN-k6j9HKA9D-iYt0dqy7WTIvRA5Qiqd9EOFOh3McCI1_IJE4QjHT8KojWfvdv';
         let pos = null;
         let saleLocations = saleList.reduce(function(prev, next){
             pos = positions[next.loc];
@@ -69,7 +44,7 @@ const samosaSearchAPI = {
                 pushPins += `&pushpin=${loc.lat}%2C${loc.lon};56;${loc.count}`;
             }
         }
-        return `${httpSrc}/${latitude}%2C${longitude}/16?mapSize=${width},300&format=png${pushPins}&key=${key}`;
+        return `${httpSrc}/${latitude}%2C${longitude}/16?mapSize=${width},300&format=png${pushPins}&key=${mapKey}`;
     },
     uniqueKeys(arr){
         return arr.reduce(function(prev,next){
@@ -104,8 +79,8 @@ const samosaSearchAPI = {
         return this.keyMap;
     },
     getClosestSale(locations){
-        let httpSrc = "https://matrix.mapzen.com/one_to_many?json";
-        let key = "matrix-K69EU2Q";
+        let httpSrc = 'https://matrix.mapzen.com/one_to_many?json';
+        let key = 'matrix-K69EU2Q';
         locations = locations || `[{"lat":40.744014,"lon":-73.990508},{"lat":40.739735,"lon":-73.979713}]`;
         let url = `${httpSrc}={"locations":${locations},"costing":"pedestrian"}&id=mosa&api_key=${key}`;
         return utils.getJSON(url);

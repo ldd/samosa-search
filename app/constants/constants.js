@@ -19,14 +19,14 @@ const constants = {
     },
     //prices
     prices:{
-        0: "1 for $1.00, 3 samosas for $3.00"
+        0: '1 for $1.00, 3 samosas for $3.00'
     },
     //times
     times:{
-        0: "8:00 AM",
-        1: "8:30 AM",
-        2: "9:00 AM",
-        3: "9:30 AM"
+        0: '8:00 AM',
+        1: '8:30 AM',
+        2: '9:00 AM',
+        3: '9:30 AM'
     }
 };
 

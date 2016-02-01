@@ -20,7 +20,7 @@ const utils = {
 
             // Handle network errors
             req.onerror = function() {
-                reject(Error("Network Error"));
+                reject(Error('Network Error'));
             };
             // Make the request
             req.send();

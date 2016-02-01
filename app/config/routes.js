@@ -7,16 +7,16 @@ import Menu from '../components/Menu/MenuController';
 import AppConstants from '../constants/constants';
 
 export default (
-  <Route path="/" component={Main}>
-    <Route path="sale"
+  <Route path='/' component={Main}>
+    <Route path='sale'
            action={AppConstants.CREATE_SALE}
            component={Sale} />
 
-    <Route path="sale/:saleId"
+    <Route path='sale/:saleId'
            action={AppConstants.UPDATE_SALE}
            component={Sale} />
 
-    <Route path="list"
+    <Route path='list'
            component={SaleList} />
     <IndexRoute component={Menu}/>
   </Route>

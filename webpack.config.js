@@ -1,11 +1,11 @@
 module.exports = {
-    entry: "./app/App.js",
+    entry: './app/App.js',
     output:{
-        path: "./public",
-        filename: "bundle.js",
-        publicPath: "/"
+        path: './public',
+        filename: 'bundle.js',
+        publicPath: '/'
     },
-    devtool: "source-map",
+    devtool: 'source-map',
     devServer: {
         inline: true,
         contentBase: './public'
@@ -18,7 +18,7 @@ module.exports = {
             {
                 test: /(\.js$|\.jsx$)/,
                 exclude: /(node_modules|bower_components)/,
-                loader: "eslint-loader"
+                loader: 'eslint-loader'
             }
         ],
         loaders: [
