@@ -38,10 +38,10 @@ class Salemap extends React.Component{
         if (lat !== null && long !== null){
             let mapSrc = SamosaSearchAPI.getMapFromLocation(lat,
                 long, this.state.saleList, this.getMapWidth());
-            mapEl = <img width='90%' style={{marginTop: 5}} src={mapSrc} alt='Map'/>
+            mapEl = <img width='90%' style={{marginTop: 5, marginBottom: 5, width: '100%'}} src={mapSrc} alt='Map'/>
         }
         return(
-            <div >
+            <div className='col-sm-12 col-md-12'>
                 {mapEl}
             </div>
         );

@@ -2,6 +2,9 @@ import React from 'react';
 import {base} from '../base/base';
 import AppConstants from '../constants/constants';
 import SamosaSearchAPI from '../api/samosaSearchAPI';
+import List from 'material-ui/lib/lists/list';
+import ListItem from 'material-ui/lib/lists/list-item';
+
 class SaleList extends React.Component{
     constructor(props){
         super(props);
@@ -36,14 +39,13 @@ class SaleList extends React.Component{
     render(){
         let query = {action: this.state.action};
         return (
-        <ul>
-            {this.state.list.map((sale, i) => <li
-                onClick={()=>this.props.history.pushState(null, `/sale/${sale.key}`, query)}
-                key={i}>
-                {AppConstants.locations[sale.loc]} ({AppConstants.times[sale.time]})
-                -- {this.parseDistance(sale.loc)}
-            </li>)}
-        </ul>
+        <List>
+            {this.state.list.map((sale, i) => <ListItem
+                onTouchTap={()=>this.props.history.pushState(null, `/sale/${sale.key}`, query)}
+                primaryText={`${AppConstants.locations[sale.loc]} (${AppConstants.times[sale.time]})`}
+                secondaryText={this.parseDistance(sale.loc)}
+                key={i}/>)}
+        </List>
         )
     }
 }

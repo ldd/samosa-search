@@ -1,13 +1,15 @@
 import React from 'react';
-import Form from 'muicss/lib/react/form';
-import TextareaInput from 'muicss/lib/react/textarea-input';
 import {base} from '../../base/base';
 import AppConstants from '../../constants/constants';
+import utils from '../../utils/utils';
 
 import LocationSelector from './locationSelector';
 import PriceSelector from './priceSelector';
 import TimeSelector from './timeSelector';
 import FormButtons from './formButtons';
+import TextField from 'material-ui/lib/text-field';
+import Card from 'material-ui/lib/card/card';
+import CardText from 'material-ui/lib/card/card-text';
 
 class Sale extends React.Component{
     constructor(props){
@@ -23,20 +25,29 @@ class Sale extends React.Component{
     }
     componentDidMount(){
         if(this.props.params.saleId){
-            this.ref = base.bindToState(`props/${this.props.params.saleId}`, {
+            this.saleRef = base.bindToState(`props/${this.props.params.saleId}`, {
                 context: this,
                 state: 'sale'
+            });
+            this.infoRef = base.bindToState(`info/${this.props.params.saleId}`, {
+                context: this,
+                state: 'info'
             });
         }
     }
     componentWillUnmount(){
         if(this.props.params.saleId) {
-            base.removeBinding(this.ref);
+            base.removeBinding(this.saleRef);
+            base.removeBinding(this.infoRef);
         }
     }
     createSale(){
-        base.push('props', {
+        let id = utils.generateId();
+        base.post(`props/${id}`, {
             data: this.state.sale
+        });
+        base.post(`info/${id}`, {
+            data: this.state.info
         });
         this.props.history.pushState(null, '/');
     }
@@ -44,10 +55,16 @@ class Sale extends React.Component{
         base.post(`props/${this.props.params.saleId}`, {
             data: this.state.sale
         });
+        base.post(`info`, {
+            data: { [this.props.params.saleId]: this.state.info}
+        });
         this.props.history.pushState(null, '/');
     }
     deleteSale(){
         base.post(`props/${this.props.params.saleId}`, {
+            data: null
+        });
+        base.post(`info/${this.props.params.saleId}`, {
             data: null
         });
         this.props.history.pushState(null, '/');
@@ -59,9 +76,10 @@ class Sale extends React.Component{
         let isEnabled = isCreating || isUpdating;
         let nextPath = isCreating? '/': '/list';
         return (
-        <Form>
+        <Card>
+            <CardText>
             <LocationSelector
-                handler={(value) => this.setState((prevState)=> {
+                handler={(e,i,value) => this.setState((prevState)=> {
                     prevState.sale.loc = +value;
                     return (
                         {sale: prevState.sale}
@@ -71,7 +89,7 @@ class Sale extends React.Component{
                 isEnabled={isEnabled}/>
             <PriceSelector/>
             <TimeSelector
-                handler={(value) => this.setState((prevState)=> {
+                handler={(e,i,value) => this.setState((prevState)=> {
                     prevState.sale.time = +value;
                     return (
                         {sale: prevState.sale}
@@ -79,16 +97,17 @@ class Sale extends React.Component{
                 })}
                 value={''+this.state.sale.time}
                 isEnabled={isEnabled}/>
-
-            <div>
-                <label>information</label>
-            <TextareaInput
-                value={this.state.info}
-                disabled={isEnabled? '' : 'disabled'}
+            <label>information</label>
+            <TextField
+                defaultValue={this.state.info}
+                value={typeof(this.state.info) === 'string'? this.state.info : ''}
+                fullWidth={true}
+                disabled={!isEnabled}
                 onChange={(el)=> this.setState({info: el.target.value})}
+                rows={2}
+                rowsMax={4}
             />
-            </div>
-
+            </CardText>
             <FormButtons
                 isUpdating={isUpdating}
                 isCreating={isCreating}
@@ -97,7 +116,7 @@ class Sale extends React.Component{
                 deleteHandler={()=> this.deleteSale()}
                 cancelHandler={()=> this.props.history.pushState(null,nextPath)}
             />
-        </Form>
+        </Card>
         )
     }
 }

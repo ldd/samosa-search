@@ -2,23 +2,7 @@ body {
     font-family: "Roboto", "Helvetica Neue", Helvetica, Arial;
 }
 
-/*a, a:hover {*/
-    /*color:inherit;*/
-    /*text-decoration: none;*/
-/*}*/
 .facebook-login{
     background-color: #3b5998;
     color: white;
-}
-
-li {
-    list-style: none;
-    padding: 15px 22px;
-    cursor: pointer;
-    /*background-color: blue;*/
-    /*color: white;*/
-}
-
-li:hover{
-    background-color: #E0E0E0;
 }

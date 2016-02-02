@@ -1,7 +1,6 @@
 import Rebase from 're-base';
 
 const base = Rebase.createClass(FIREBASE_URL);
-console.log(FIREBASE_URL);
 const baseUtils = {
     getUID(){
         let auth = base.getAuth();

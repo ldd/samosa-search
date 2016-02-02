@@ -1,34 +1,31 @@
 import React from 'react';
 import AppConstants from '../../constants/constants';
-import Col from 'muicss/lib/react/col';
-import Button from 'muicss/lib/react/button';
+import RaisedButton from 'material-ui/lib/raised-button';
 
-const LoggeduserOptions = ({history}) => (
+const LoggedUserOptions = ({history}) => (
     <div>
-        <Col lg='3' sm='12'>
-            <Button
+        <div className='col-sm-12 col-md-3'>
+            <RaisedButton
                 color='primary'
-                style={{width:'90%'}}
-                onClick={() => history.push('/unconfirmed')}>
-                Confirm a sale
-            </Button>
-        </Col>
-        <Col lg='3' sm='12' >
-            <Button
+                style={{width:'100%'}}
+                disabled={true}
+                label='Confirm a sale'
+                onClick={() => history.push('/unconfirmed')}/>
+        </div>
+        <div className='col-sm-12 col-md-3'>
+            <RaisedButton
                 color='primary'
-                style={{width:'90%'}}
-                onClick={() => history.pushState(null, '/sale', {action:AppConstants.CREATE_SALE})}>
-                Create a sale
-            </Button>
-        </Col>
-        <Col lg='3' sm='12' >
-            <Button
+                style={{width:'100%'}}
+                label='Create a sale'
+                onClick={() => history.pushState(null, '/sale', {action:AppConstants.CREATE_SALE})}/>
+        </div>
+        <div className='col-sm-12 col-md-3'>
+            <RaisedButton
                 color='primary'
-                style={{width:'90%'}}
-                onClick={() => history.pushState(null, '/list', {action:AppConstants.UPDATE_SALE})}>
-                Edit sales
-            </Button>
-        </Col>
+                style={{width:'100%'}}
+                label='Edit sales'
+                onClick={() => history.pushState(null, '/list', {action:AppConstants.UPDATE_SALE})}/>
+        </div>
     </div>
 );
-export default LoggeduserOptions;
+export default LoggedUserOptions;

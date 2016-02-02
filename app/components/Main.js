@@ -1,37 +1,26 @@
 import React from 'react';
-import Appbar from 'muicss/lib/react/appbar';
-import Button from 'muicss/lib/react/button';
 import {base, baseUtils} from '../base/base';
+import AppBar from 'material-ui/lib/app-bar';
+import ActionHome from 'material-ui/lib/svg-icons/action/home';
+import FlatButton from 'material-ui/lib/flat-button';
+import IconButton from 'material-ui/lib/icon-button';
 
 class Main extends React.Component{
     render(){
         let isLoggedIn = baseUtils.isLoggedIn();
         let history = this.props.history;
         return(
-            <div className='main-container'>
-                <Appbar>
-                    <div className='mui--appbar-line-height mui--appbar-height'>
-                        <Button
-                            style={{left: 5}}
-                            variant='raised' color='primary'
-                            onClick={() => history.pushState(null, '/')}>
-                            Home
-                        </Button>
-                        {
-                            isLoggedIn &&
-                            <Button
-                                variant='raised' color='primary'
-                                onClick={() => {
-                          base.unauth().then(history.pushState(null, '/'))
-                      }}>
-                                Logout
-                            </Button>
-                        }
-                    </div>
-                </Appbar>
-                <div className='container'>
-                    {this.props.children}
-                </div>
+        <div>
+            <AppBar
+                iconElementLeft={<IconButton onClick={()=> history.pushState(null, '/')}>
+                <ActionHome /></IconButton>}
+                iconElementRight={<FlatButton label='logout'
+                    onClick={() => {base.unauth().then(history.pushState(null, '/'))}} />}
+                iconStyleRight={isLoggedIn? {} : {display: 'none'}}
+            />
+            <div>
+                {this.props.children}
+            </div>
             </div>
         )
     }
