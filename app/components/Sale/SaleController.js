@@ -1,5 +1,5 @@
 import React from 'react';
-import {base} from '../../base/base';
+import {base, baseUtils} from '../../base/base';
 import AppConstants from '../../constants/constants';
 import utils from '../../utils/utils';
 
@@ -7,6 +7,7 @@ import LocationSelector from './locationSelector';
 import PriceSelector from './priceSelector';
 import TimeSelector from './timeSelector';
 import FormButtons from './formButtons';
+import Notification from '../Notification';
 import TextField from 'material-ui/lib/text-field';
 import Card from 'material-ui/lib/card/card';
 import CardText from 'material-ui/lib/card/card-text';
@@ -18,7 +19,8 @@ class Sale extends React.Component{
             sale:{
                 loc: 0,
                 price: 0,
-                time: 0
+                time: 0,
+                owner: baseUtils.getUID()
             },
             info: ''
         };
@@ -72,6 +74,7 @@ class Sale extends React.Component{
     render(){
         let action = this.props.location.query.action;
         let isCreating = action === AppConstants.CREATE_SALE;
+        let isOwner = this.state.sale.owner === baseUtils.getUID();
         let isUpdating = action === AppConstants.UPDATE_SALE;
         let isEnabled = isCreating || isUpdating;
         let nextPath = isCreating? '/': '/list';
@@ -109,13 +112,14 @@ class Sale extends React.Component{
             />
             </CardText>
             <FormButtons
-                isUpdating={isUpdating}
+                isUpdating={isUpdating && isOwner}
                 isCreating={isCreating}
                 createHandler={()=> this.createSale()}
                 updateHandler={()=> this.updateSale()}
                 deleteHandler={()=> this.deleteSale()}
                 cancelHandler={()=> this.props.history.pushState(null,nextPath)}
             />
+            {(isUpdating && !isOwner) && <Notification message='You cannot edit this sale'/>}
         </Card>
         )
     }
