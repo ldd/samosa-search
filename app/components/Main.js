@@ -25,6 +25,7 @@ class Main extends React.Component{
     }
     render(){
         let isLoggedIn = baseUtils.isLoggedIn();
+        let isRootRoute = this.props.location.pathname === '/';
         return(
         <div>
             <ApplicationBar
@@ -39,9 +40,12 @@ class Main extends React.Component{
                 closeHandler={()=> this.setState({open: false})}/>
             {/*add the sale list as a property to the child*/}
             {React.cloneElement(this.props.children, {saleList: this.state.saleList})}
-            {isLoggedIn && <FloatingActionButton
+            {isLoggedIn && isRootRoute && <FloatingActionButton
                 style={{position: 'absolute', bottom:5, right:5}}
-                onClick={()=>this.props.history.pushState(null, '/sale')}>
+                onClick={()=>{
+                this.setState({open: false});
+                this.props.history.pushState(null, '/sale')
+                }}>
                 <ContentAdd />
             </FloatingActionButton>
             }
