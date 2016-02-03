@@ -5,9 +5,9 @@ import utils from '../../utils/utils';
 import LocationSelector from './locationSelector';
 import PriceSelector from './priceSelector';
 import TimeSelector from './timeSelector';
+import InformationField from './informationField';
 import FormButtons from './formButtons';
 import Notification from '../Notification';
-import TextField from 'material-ui/lib/text-field';
 import Card from 'material-ui/lib/card/card';
 import CardText from 'material-ui/lib/card/card-text';
 
@@ -96,35 +96,33 @@ class Sale extends React.Component{
         return (
         <Card>
             <CardText>
-            <LocationSelector
-                handler={(e,i,value) => this.setState((prevState)=> {
-                    prevState.sale.loc = +value;
-                    return (
-                        {sale: prevState.sale}
-                    )
-                })}
-                value={''+this.state.sale.loc}
-                isEnabled={isOwner || isCreating}/>
-            <PriceSelector/>
-            <TimeSelector
-                handler={(e,i,value) => this.setState((prevState)=> {
-                    prevState.sale.time = +value;
-                    return (
-                        {sale: prevState.sale}
-                    )
-                })}
-                value={''+this.state.sale.time}
-                isEnabled={isOwner || isCreating}/>
-            <label>information</label>
-            <TextField
-                defaultValue={this.state.info}
-                value={typeof(this.state.info) === 'string'? this.state.info : ''}
-                fullWidth={true}
-                disabled={!(isOwner || isCreating)}
-                onChange={(el)=> this.setState({info: el.target.value})}
-                rows={2}
-                rowsMax={4}
-            />
+                <LocationSelector
+                    handler={(e,i,value) => this.setState((prevState)=> {
+                        prevState.sale.loc = +value;
+                        return (
+                            {sale: prevState.sale}
+                        )
+                    })}
+                    value={''+this.state.sale.loc}
+                    isEnabled={isOwner || isCreating}
+                />
+                <PriceSelector/>
+                <TimeSelector
+                    handler={(e,i,value) => this.setState((prevState)=> {
+                        prevState.sale.time = +value;
+                        return (
+                            {sale: prevState.sale}
+                        )
+                    })}
+                    value={''+this.state.sale.time}
+                    isEnabled={isOwner || isCreating}
+                />
+                <InformationField
+                    defaultValue={this.state.info}
+                    value={typeof(this.state.info) === 'string'? this.state.info : ''}
+                    disabled={!(isOwner || isCreating)}
+                    handler={(el)=> this.setState({info: el.target.value})}
+                />
             </CardText>
             <FormButtons
                 isUpdating={isUpdating && isOwner}

@@ -1,8 +1,8 @@
 import React from 'react';
-import AppConstants from '../constants/constants';
-import SamosaSearchAPI from '../api/samosaSearchAPI';
-import List from 'material-ui/lib/lists/list';
-import ListItem from 'material-ui/lib/lists/list-item';
+import AppConstants from '../../constants/constants';
+import SamosaSearchAPI from '../../api/samosaSearchAPI';
+import List from '../../../node_modules/material-ui/lib/lists/list';
+import ListItem from '../../../node_modules/material-ui/lib/lists/list-item';
 
 class SaleList extends React.Component{
     constructor(props){

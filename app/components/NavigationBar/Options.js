@@ -1,10 +1,10 @@
 import React from 'react';
 
-import List from 'material-ui/lib/lists/list';
-import ListItem from 'material-ui/lib/lists/list-item';
-import Toggle from 'material-ui/lib/toggle';
-import RadioButton from 'material-ui/lib/radio-button';
-import RadioButtonGroup from 'material-ui/lib/radio-button-group';
+import List from '../../../node_modules/material-ui/lib/lists/list';
+import ListItem from '../../../node_modules/material-ui/lib/lists/list-item';
+import Toggle from '../../../node_modules/material-ui/lib/toggle';
+import RadioButton from '../../../node_modules/material-ui/lib/radio-button';
+import RadioButtonGroup from '../../../node_modules/material-ui/lib/radio-button-group';
 
 class Options extends React.Component{
     constructor(props){

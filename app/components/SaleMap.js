@@ -1,5 +1,5 @@
 import React from 'react';
-import SamosaSearchAPI from '../../api/samosaSearchAPI';
+import SamosaSearchAPI from '../api/samosaSearchAPI';
 
 class Salemap extends React.Component{
     constructor(props){

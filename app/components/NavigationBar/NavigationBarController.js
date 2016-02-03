@@ -1,13 +1,13 @@
 import React from 'react';
-import AppBar from 'material-ui/lib/app-bar';
-import LeftNav from 'material-ui/lib/left-nav';
+import AppBar from '../../../node_modules/material-ui/lib/app-bar';
+import LeftNav from '../../../node_modules/material-ui/lib/left-nav';
 import SaleList from './SaleList';
-import Divider from 'material-ui/lib/divider';
+import Divider from '../../../node_modules/material-ui/lib/divider';
 
-import IconButton from 'material-ui/lib/icon-button';
-import NavigationExpandMore from 'material-ui/lib/svg-icons/navigation/expand-more';
+import IconButton from '../../../node_modules/material-ui/lib/icon-button';
+import NavigationExpandMore from '../../../node_modules/material-ui/lib/svg-icons/navigation/expand-more';
 import Options from './Options';
-import NavigationClose from 'material-ui/lib/svg-icons/navigation/close';
+import NavigationClose from '../../../node_modules/material-ui/lib/svg-icons/navigation/close';
 
 class NavigationBar extends React.Component{
     constructor(props){
