@@ -14,6 +14,7 @@ const samosaSearchAPI = {
         lon: -73.57616
     },
     keyMap: {},
+    cachedDistances: [],
     getLocation(success, error){
         if(!navigator.geolocation) {
             return null;
@@ -26,7 +27,7 @@ const samosaSearchAPI = {
             }, error);
         }
     },
-    getMapFromLocation(latitude, longitude, saleList, width){
+    getMapFromLocation(latitude, longitude, saleList, width, height){
         let httpSrc = 'https://dev.virtualearth.net/REST/V1/Imagery/Map/Road';
         let mapKey = BING_KEY;
         let pos = null;
@@ -44,45 +45,76 @@ const samosaSearchAPI = {
                 pushPins += `&pushpin=${loc.lat}%2C${loc.lon};56;${loc.count}`;
             }
         }
-        return `${httpSrc}/${latitude}%2C${longitude}/16?mapSize=${width},300&format=png${pushPins}&key=${mapKey}`;
+        return `${httpSrc}/${latitude}%2C${longitude}/16?mapSize=${width},${height}&format=png${pushPins}&key=${mapKey}`;
     },
-    uniqueKeys(arr){
+    /**
+     * get distances from an array of sales, either from the cache
+     * or by making a request to an external server
+     * @param arr
+     * @returns {*}
+     */
+    getDistances(arr){
+        //we get the unique locations of the given array of sales
+        let newKeyMap = this._getUniqueKeys(arr);
+        this._prepareMap(newKeyMap);
+        //for every location in the new map, we already have a valid location
+        //so we use the cache
+        if(Object.keys(newKeyMap).every(el => this.keyMap.hasOwnProperty(el))){
+            console.log('using cached locations');
+            return Promise.resolve(this._setDistances(this.cachedDistances, newKeyMap));
+        }
+        //we make a request to an external server
+        else{
+            let locations = this._getPreparedLocations(newKeyMap);
+            return this.requestDistances(locations).then((results)=> {
+                //we parse the results given by the server to valid distances
+                results.one_to_many[0].shift();
+                let distances = results.one_to_many[0];
+                //we update the cached distances, the keyMap and return the updated keyMap
+                this.cachedDistances = distances;
+                return this._setDistances(distances, newKeyMap);
+            });
+        }
+    },
+    _getUniqueKeys(arr){
         return arr.reduce(function(prev,next){
             prev[next.loc] = true;
             return prev;
         },{});
     },
-    stringifyLocations(map){
+    _prepareMap(map){
         let index = 0;
-        let locations = [this.location];
         for(let key in map){
             if(map.hasOwnProperty(key)){
                 map[key] = index++;
-                locations.push(positions[map[key]]);
             }
         }
-        return JSON.stringify(locations);
     },
-    getDistances(arr){
-        this.keyMap = this.uniqueKeys(arr);
-        let locations = this.stringifyLocations(this.keyMap);
-        return this.getClosestSale(locations).then((res)=> this._setDistances(res));
+    _getPreparedLocations(map){
+        return JSON.stringify(Object.keys(map).reduce(function(prev,next){
+            prev.push(positions[map[next]]);
+            return prev;
+        }, [this.location]));
     },
-    _setDistances(results){
-        results.one_to_many[0].shift();
-        let distances = results.one_to_many[0];
-        for(let key in this.keyMap){
-            if(this.keyMap.hasOwnProperty(key)) {
-                this.keyMap[key] = distances[this.keyMap[key]];
+    _setDistances(distances, map){
+        for(let key in map){
+            if(map.hasOwnProperty(key)) {
+                map[key] = distances[map[key]];
             }
         }
+        this.keyMap = map;
         return this.keyMap;
     },
-    getClosestSale(locations){
+    /**
+     * make GET request to an external server and get distances (in km)
+     * @param locations String a stringfied array of locations
+     * @returns resulting distances in km
+     */
+    requestDistances(locations){
         let httpSrc = 'https://matrix.mapzen.com/one_to_many?json';
         let key = MAPZEN_MATRIX_KEY;
-        locations = locations || `[{"lat":40.744014,"lon":-73.990508},{"lat":40.739735,"lon":-73.979713}]`;
         let url = `${httpSrc}={"locations":${locations},"costing":"pedestrian"}&id=mosa&api_key=${key}`;
+        //perform the actual GET request and parse it
         return utils.getJSON(url);
     }
 };

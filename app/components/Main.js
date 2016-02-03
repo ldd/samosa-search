@@ -1,27 +1,51 @@
 import React from 'react';
 import {base, baseUtils} from '../base/base';
-import AppBar from 'material-ui/lib/app-bar';
-import ActionHome from 'material-ui/lib/svg-icons/action/home';
-import FlatButton from 'material-ui/lib/flat-button';
-import IconButton from 'material-ui/lib/icon-button';
+import FloatingActionButton from 'material-ui/lib/floating-action-button';
+import ContentAdd from 'material-ui/lib/svg-icons/content/add';
+import NavigationBar from './NavigationBar';
+import ApplicationBar from './ApplicationBar';
 
 class Main extends React.Component{
+    constructor(props){
+        super(props);
+        this.state={
+            open: false,
+            saleList: []
+        }
+    }
+    componentDidMount(){
+        this.ref = base.bindToState('props', {
+            context: this,
+            asArray: true,
+            state: 'saleList'
+        });
+    }
+    componentWillUnmount(){
+        base.removeBinding(this.ref);
+    }
     render(){
         let isLoggedIn = baseUtils.isLoggedIn();
-        let history = this.props.history;
         return(
         <div>
-            <AppBar
-                iconElementLeft={<IconButton onClick={()=> history.pushState(null, '/')}>
-                <ActionHome /></IconButton>}
-                iconElementRight={<FlatButton label='logout'
-                    onClick={() => {base.unauth().then(history.pushState(null, '/'))}} />}
-                iconStyleRight={isLoggedIn? {} : {display: 'none'}}
+            <ApplicationBar
+                isLoggedIn={isLoggedIn}
+                history={this.props.history}
+                handler={()=> this.setState({open: true})}
             />
-            <div>
-                {this.props.children}
-            </div>
-            </div>
+            <NavigationBar
+                saleList={this.state.saleList}
+                history={this.props.history}
+                open={this.state.open}
+                closeHandler={()=> this.setState({open: false})}/>
+            {/*add the sale list as a property to the child*/}
+            {React.cloneElement(this.props.children, {saleList: this.state.saleList})}
+            {isLoggedIn && <FloatingActionButton
+                style={{position: 'absolute', bottom:5, right:5}}
+                onClick={()=>this.props.history.pushState(null, '/sale')}>
+                <ContentAdd />
+            </FloatingActionButton>
+            }
+        </div>
         )
     }
 }

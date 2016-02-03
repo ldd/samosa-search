@@ -1,14 +1,12 @@
 import React from 'react';
 import SamosaSearchAPI from '../../api/samosaSearchAPI';
-import {base} from '../../base/base';
 
 class Salemap extends React.Component{
     constructor(props){
         super(props);
         this.state={
             latitude: null,
-            longitude: null,
-            saleList: []
+            longitude: null
         };
         SamosaSearchAPI.getLocation((pos)=>{this.setState({
             latitude: pos.coords.latitude,
@@ -17,16 +15,6 @@ class Salemap extends React.Component{
             latitude: SamosaSearchAPI.defaultLocation.lat,
             longitude: SamosaSearchAPI.defaultLocation.lon
         })});
-    }
-    componentDidMount(){
-        this.ref = base.bindToState('props', {
-            context: this,
-            asArray: true,
-            state: 'saleList'
-        });
-    }
-    componentWillUnmount(){
-        base.removeBinding(this.ref);
     }
     getMapWidth(){
         return window && Math.round(window.innerWidth*.95) || 600;
@@ -37,11 +25,12 @@ class Salemap extends React.Component{
         let mapEl = <p>Loading Map...</p>;
         if (lat !== null && long !== null){
             let mapSrc = SamosaSearchAPI.getMapFromLocation(lat,
-                long, this.state.saleList, this.getMapWidth());
-            mapEl = <img width='90%' style={{marginTop: 5, marginBottom: 5, width: '100%'}} src={mapSrc} alt='Map'/>
+                long, this.props.saleList, this.getMapWidth(),300);
+            mapEl = (<img width='100%' style={{marginTop: 5, marginBottom: 5,
+            }} src={mapSrc} alt='Map'/>);
         }
         return(
-            <div className='col-sm-12 col-md-12'>
+            <div>
                 {mapEl}
             </div>
         );

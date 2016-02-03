@@ -2,8 +2,7 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import Main from '../components/Main';
 import Sale from '../components/Sale/SaleController';
-import SaleList from '../components/SaleList';
-import Menu from '../components/Menu/MenuController';
+import SaleMap from '../components/Menu/SaleMap';
 import AppConstants from '../constants/constants';
 
 export default (
@@ -16,8 +15,6 @@ export default (
            action={AppConstants.UPDATE_SALE}
            component={Sale} />
 
-    <Route path='list'
-           component={SaleList} />
-    <IndexRoute component={Menu}/>
+    <IndexRoute component={SaleMap}/>
   </Route>
 );

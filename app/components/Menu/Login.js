@@ -1,14 +1,12 @@
 import React from 'react';
-import RaisedButton from 'material-ui/lib/raised-button';
+import FlatButton from 'material-ui/lib/flat-button';
+import {base} from '../../base/base';
 
-const Login = ({handler}) => (
-    <div className='col-sm-12 col-md-3 col-md-offset-3'>
-        <RaisedButton
-            backgroundColor= '#3b5998'
-            labelColor='white'
-            style={{width:'100%'}}
-            label='Log in with Facebook'
-            onClick={handler}/>
-    </div>
+const Login = () => (
+    <FlatButton
+        backgroundColor= '#3b5998'
+        labelColor='white'
+        label='Log in with Facebook'
+        onClick={() =>(base.authWithOAuthPopup('facebook', ()=> {history.pushState(null, '/')}))}/>
 );
 export default Login;

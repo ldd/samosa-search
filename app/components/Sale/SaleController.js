@@ -1,6 +1,5 @@
 import React from 'react';
 import {base, baseUtils} from '../../base/base';
-import AppConstants from '../../constants/constants';
 import utils from '../../utils/utils';
 
 import LocationSelector from './locationSelector';
@@ -27,20 +26,27 @@ class Sale extends React.Component{
     }
     componentDidMount(){
         if(this.props.params.saleId){
-            this.saleRef = base.bindToState(`props/${this.props.params.saleId}`, {
-                context: this,
-                state: 'sale'
-            });
             this.infoRef = base.bindToState(`info/${this.props.params.saleId}`, {
                 context: this,
                 state: 'info'
             });
+            //we set the initial state, passed down from our parent
+            this.setSale(this.props.params.saleId);
         }
     }
     componentWillUnmount(){
         if(this.props.params.saleId) {
-            base.removeBinding(this.saleRef);
             base.removeBinding(this.infoRef);
+        }
+    }
+    setSale(id){
+        let sale = this.props.saleList.find(sale => sale.key === id);
+        if(sale){
+            this.state.sale = sale;
+        }
+        //sale not found, we go to root route
+        else{
+            this.props.history.pushState(null, '/');
         }
     }
     createSale(){
@@ -71,13 +77,22 @@ class Sale extends React.Component{
         });
         this.props.history.pushState(null, '/');
     }
+    componentWillReceiveProps(nextProps){
+        if(nextProps.params.saleId !== this.props.params.saleId){
+            base.removeBinding(this.infoRef);
+            if(nextProps.params.saleId){
+                this.infoRef = base.bindToState(`info/${nextProps.params.saleId}`, {
+                    context: this,
+                    state: 'info'
+                });
+            }
+            this.setSale(nextProps.params.saleId);
+        }
+    }
     render(){
-        let action = this.props.location.query.action;
-        let isCreating = action === AppConstants.CREATE_SALE;
+        let isCreating = !this.props.params.saleId;
         let isOwner = this.state.sale.owner === baseUtils.getUID();
-        let isUpdating = action === AppConstants.UPDATE_SALE;
-        let isEnabled = isCreating || isUpdating;
-        let nextPath = isCreating? '/': '/list';
+        let isUpdating = !isCreating;
         return (
         <Card>
             <CardText>
@@ -89,7 +104,7 @@ class Sale extends React.Component{
                     )
                 })}
                 value={''+this.state.sale.loc}
-                isEnabled={isEnabled}/>
+                isEnabled={isOwner || isCreating}/>
             <PriceSelector/>
             <TimeSelector
                 handler={(e,i,value) => this.setState((prevState)=> {
@@ -99,13 +114,13 @@ class Sale extends React.Component{
                     )
                 })}
                 value={''+this.state.sale.time}
-                isEnabled={isEnabled}/>
+                isEnabled={isOwner || isCreating}/>
             <label>information</label>
             <TextField
                 defaultValue={this.state.info}
                 value={typeof(this.state.info) === 'string'? this.state.info : ''}
                 fullWidth={true}
-                disabled={!isEnabled}
+                disabled={!(isOwner || isCreating)}
                 onChange={(el)=> this.setState({info: el.target.value})}
                 rows={2}
                 rowsMax={4}
@@ -117,9 +132,9 @@ class Sale extends React.Component{
                 createHandler={()=> this.createSale()}
                 updateHandler={()=> this.updateSale()}
                 deleteHandler={()=> this.deleteSale()}
-                cancelHandler={()=> this.props.history.pushState(null,nextPath)}
+                cancelHandler={()=> this.props.history.pushState(null,'/')}
             />
-            {(isUpdating && !isOwner) && <Notification message='You cannot edit this sale'/>}
+            {(isUpdating && !isOwner) && <Notification initialState={true} message='You cannot edit this sale'/>}
         </Card>
         )
     }
