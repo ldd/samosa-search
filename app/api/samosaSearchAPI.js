@@ -27,6 +27,31 @@ const samosaSearchAPI = {
             }, error);
         }
     },
+    /**
+     * Given a sale List we first get an array-like Object containing unique keys
+     * we then return an array generated from such an object
+     * @param saleList an array of sales
+     * @returns {Array.<T>} an array of {positions,count}
+     */
+    getTags(saleList){
+        let pos = null;
+        let length = 0;
+        let uniqueKeyCount = saleList.reduce(function(prev, next){
+            pos = positions[next.loc];
+            // if we have a previous location value, we increment the count there.
+            if(prev[next.loc]){
+                prev[next.loc].count +=1;
+            }
+            // Otherwise, we give a new object containing the position and a count of 1
+            else{
+                prev[next.loc] = {position: {lat: pos.lat, lng: pos.lon}, count: 1};
+                length +=1;
+            }
+            return prev;
+        },{});
+        uniqueKeyCount.length = length;
+        return Array.prototype.slice.call(uniqueKeyCount);
+    },
     getMapFromLocation(latitude, longitude, saleList, width, height){
         let httpSrc = 'https://dev.virtualearth.net/REST/V1/Imagery/Map/Road';
         let mapKey = BING_KEY;

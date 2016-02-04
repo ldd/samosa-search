@@ -1,40 +1,70 @@
 import React from 'react';
+import {GoogleMapLoader, GoogleMap, Marker} from 'react-google-maps';
 import SamosaSearchAPI from '../api/samosaSearchAPI';
 
-class Salemap extends React.Component{
+class SimpleMap extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            latitude: null,
-            longitude: null
+            lat: SamosaSearchAPI.defaultLocation.lat,
+            lon: SamosaSearchAPI.defaultLocation.lon,
+            markers: []
         };
+        //we make sure that either we update our state position
+        // or we use the default position
         SamosaSearchAPI.getLocation((pos)=>{this.setState({
-            latitude: pos.coords.latitude,
-            longitude: pos.coords.longitude
+            lat: pos.coords.latitude,
+            long: pos.coords.longitude
         })}, ()=>{this.setState({
-            latitude: SamosaSearchAPI.defaultLocation.lat,
-            longitude: SamosaSearchAPI.defaultLocation.lon
+            lat: SamosaSearchAPI.defaultLocation.lat,
+            lon: SamosaSearchAPI.defaultLocation.lon
         })});
     }
-    getMapWidth(){
-        return window && Math.round(window.innerWidth*.95) || 600;
-    }
     render(){
-        let lat = this.state.latitude;
-        let long = this.state.longitude;
-        let mapEl = <p>Loading Map...</p>;
-        if (lat !== null && long !== null){
-            let mapSrc = SamosaSearchAPI.getMapFromLocation(lat,
-                long, this.props.saleList, this.getMapWidth(),300);
-            mapEl = (<img width='100%' style={{marginTop: 5, marginBottom: 5,
-            }} src={mapSrc} alt='Map'/>);
-        }
-        return(
-            <div>
-                {mapEl}
-            </div>
+        return (
+        <section style={{height: '100%'}}>
+            <GoogleMapLoader
+                containerElement={
+                <div
+                    {...this.props}
+                    style={{
+                    /*64 is the height of the AppBar,
+                     we set these values to the max possible*/
+                        width:window.innerWidth,
+                        height:window.innerHeight-64,
+                        position: 'absolute'
+                    }}
+                >
+                </div>
+                }
+                googleMapElement={
+                <GoogleMap
+                    ref={()=>{}}
+                    options={{
+                    /*these are options that affect the controls shown in the map*/
+                        streetViewControl:false,
+                        mapTypeControl:false,
+                        zoomControl: true,
+                        zoomControlOptions: {
+                            position: google.maps.ControlPosition.RIGHT_TOP
+                        }
+                    }}
+                    defaultZoom={16}
+                    defaultCenter={{lat: this.state.lat, lng: this.state.lon}}
+                    onClick={()=>{}}>
+                    {/*we get tags from the sale list, by getting unique keys.
+                       then we display markers from these tags */}
+                    {SamosaSearchAPI.getTags(this.props.saleList).map((marker,i) => {
+                      return (
+                        <Marker key={''+i} position={marker.position} label={''+marker.count}/>
+                      );
+                    })}
+                </GoogleMap>
+                }
+            />
+        </section>
         );
     }
 }
 
-export default Salemap;
+export default SimpleMap;
