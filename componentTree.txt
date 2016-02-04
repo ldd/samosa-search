@@ -1,0 +1,86 @@
+  ///////////////////////////////////////////////////
+ ///  Simplified view (only created components)  ///
+///////////////////////////////////////////////////
+
+route: /
+
+> Main
+    > ApplicationBar
+        @isLoggedIn? -logOutComponent : -logInComponent
+    > NavigationBar
+        @optionsOpen?
+            >Options
+            >SaleList
+    >SaleMap
+    >AddSaleButton
+
+route: /sale, /sale:saleId
+
+> Main
+    > ApplicationBar(...)
+    > NavigationBar(...)
+    >Sale
+        >LocationSelector
+        >PriceSelector
+        >TimeSelector
+        >informationField
+        >FormButtons
+
+  ///////////////////////////////////////////////////
+ ///      Full view (all react components)       ///
+///////////////////////////////////////////////////
+
+route: /
+
+> Main
+    > ApplicationBar
+        @isLoggedIn? -logOutComponent : -logInComponent
+    > NavigationBar
+        -LeftNav
+            -AppBar
+                -IconButton(NavigationClose)
+                -IconButton(NavigationExpandMore)
+                @optionsOpen?
+                    >Options
+                        -List
+                            [-ListItem
+                             -ListItem
+                                -RadioButtonGroup
+                                    -RadioButton
+                             -ListItem
+                             -ListItem
+                                -RadioButtonGroup
+                                    -RadioButton
+                            ]
+                    >SaleList
+                        -List
+                            [-ListItem...]
+                -Divider
+    >SaleMap
+        \div\img
+    >AddSaleButton
+
+route: /sale, /sale:saleId
+> Main
+    > ApplicationBar(...)
+    > NavigationBar(...)
+    >Sale
+        -Card
+            -CardText
+                >LocationSelector
+                    \div
+                        >SelectField
+                            [>MenuItem*3]
+                >PriceSelector
+                    \div
+                        \label
+                        -RadioButtonGroup
+                            -RadioButton
+                >TimeSelector
+                    \div
+                        >SelectField
+                            [>MenuItem*3]
+                >InformationField
+            >FormButtons
+                -CardActions
+                    [-RaisedButton*3]

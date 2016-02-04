@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "description": "Samosa Search App",
   "main": "public/index.html",
-  "scripts": {
-    "start": "webpack-dev-server"
-  },
   "author": "ldd",
   "license": "MIT",
   "devDependencies": {
@@ -18,10 +15,12 @@
     "eslint-plugin-react": "^3.16.1"
   },
   "dependencies": {
+    "material-ui": "^0.14.3",
+    "re-base": "^1.5.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
+    "react-google-maps": "^4.7.2",
     "react-router": "^1.0.3",
-    "re-base": "^1.5.1",
-    "muicss": "^0.3.0"
+    "react-tap-event-plugin": "^0.2.2"
   }
 }

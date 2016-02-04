@@ -9,3 +9,4 @@ node_modules
 
 #project specific
 public/bundle.js*
+scripts

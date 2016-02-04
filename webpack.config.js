@@ -1,11 +1,14 @@
+/*eslint-env node*/
+var webpack = require('webpack');
+
 module.exports = {
-    entry: "./app/App.js",
+    entry: './app/App.js',
     output:{
-        path: "./public",
-        filename: "bundle.js",
-        publicPath: "/"
+        path: './public',
+        filename: 'bundle.js',
+        publicPath: '/'
     },
-    devtool: "source-map",
+    devtool: 'source-map',
     devServer: {
         inline: true,
         contentBase: './public'
@@ -18,7 +21,7 @@ module.exports = {
             {
                 test: /(\.js$|\.jsx$)/,
                 exclude: /(node_modules|bower_components)/,
-                loader: "eslint-loader"
+                loader: 'eslint-loader'
             }
         ],
         loaders: [
@@ -31,5 +34,14 @@ module.exports = {
             }
         }
         ]
-    }
+    },
+    plugins:[
+        new webpack.DefinePlugin({
+            DEBUG: process.env.NODE_ENV !== 'production',
+            PRODUCTION: process.env.NODE_ENV === 'production'
+            // Make sure FIREBASE_URL, BING_KEY, MAPZEN_MATRIX_KEY are defined
+            // when using webpack with the option --define "key"="value".
+            // They will not be defined here.
+        }),
+    ]
 };

@@ -1,38 +1,55 @@
 import React from 'react';
-import Appbar from 'muicss/lib/react/appbar';
-import Button from 'muicss/lib/react/button';
 import {base, baseUtils} from '../base/base';
+import FloatingActionButton from 'material-ui/lib/floating-action-button';
+import ContentAdd from 'material-ui/lib/svg-icons/content/add';
+import NavigationBar from './NavigationBar/NavigationBarController';
+import ApplicationBar from './ApplicationBar';
 
 class Main extends React.Component{
+    constructor(props){
+        super(props);
+        this.state={
+            open: false,
+            saleList: []
+        }
+    }
+    componentDidMount(){
+        this.ref = base.bindToState('props', {
+            context: this,
+            asArray: true,
+            state: 'saleList'
+        });
+    }
+    componentWillUnmount(){
+        base.removeBinding(this.ref);
+    }
     render(){
         let isLoggedIn = baseUtils.isLoggedIn();
-        let history = this.props.history;
+        let isRootRoute = this.props.location.pathname === '/';
         return(
-            <div className="main-container">
-                <Appbar>
-                    <div className="mui--appbar-line-height mui--appbar-height">
-                        <Button
-                            style={{left: 5}}
-                            variant="raised" color="primary"
-                            onClick={() => history.pushState(null, '/')}>
-                            Home
-                        </Button>
-                        {
-                            isLoggedIn &&
-                            <Button
-                                variant="raised" color="primary"
-                                onClick={() => {
-                          base.unauth().then(history.pushState(null, '/'))
-                      }}>
-                                Logout
-                            </Button>
-                        }
-                    </div>
-                </Appbar>
-                <div className="container">
-                    {this.props.children}
-                </div>
-            </div>
+        <div>
+            <ApplicationBar
+                isLoggedIn={isLoggedIn}
+                history={this.props.history}
+                handler={()=> this.setState({open: true})}
+            />
+            <NavigationBar
+                saleList={this.state.saleList}
+                history={this.props.history}
+                open={this.state.open}
+                closeHandler={()=> this.setState({open: false})}/>
+            {/*add the sale list as a property to the child*/}
+            {React.cloneElement(this.props.children, {saleList: this.state.saleList})}
+            {isLoggedIn && isRootRoute && <FloatingActionButton
+                style={{position: 'absolute', bottom:5, right:5}}
+                onClick={()=>{
+                this.setState({open: false});
+                this.props.history.pushState(null, '/sale')
+                }}>
+                <ContentAdd />
+            </FloatingActionButton>
+            }
+        </div>
         )
     }
 }

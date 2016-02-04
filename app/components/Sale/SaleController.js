@@ -1,13 +1,15 @@
 import React from 'react';
-import Form from 'muicss/lib/react/form';
-import TextareaInput from 'muicss/lib/react/textarea-input';
-import {base} from '../../base/base';
-import AppConstants from '../../constants/constants';
+import {base, baseUtils} from '../../base/base';
+import utils from '../../utils/utils';
 
 import LocationSelector from './locationSelector';
 import PriceSelector from './priceSelector';
 import TimeSelector from './timeSelector';
+import InformationField from './informationField';
 import FormButtons from './formButtons';
+import Notification from '../Notification';
+import Card from 'material-ui/lib/card/card';
+import CardText from 'material-ui/lib/card/card-text';
 
 class Sale extends React.Component{
     constructor(props){
@@ -16,27 +18,44 @@ class Sale extends React.Component{
             sale:{
                 loc: 0,
                 price: 0,
-                time: 0
+                time: 0,
+                owner: baseUtils.getUID()
             },
-            info: ""
+            info: ''
         };
     }
     componentDidMount(){
         if(this.props.params.saleId){
-            this.ref = base.bindToState(`props/${this.props.params.saleId}`, {
+            this.infoRef = base.bindToState(`info/${this.props.params.saleId}`, {
                 context: this,
-                state: 'sale'
+                state: 'info'
             });
+            //we set the initial state, passed down from our parent
+            this.setSale(this.props.params.saleId);
         }
     }
     componentWillUnmount(){
         if(this.props.params.saleId) {
-            base.removeBinding(this.ref);
+            base.removeBinding(this.infoRef);
+        }
+    }
+    setSale(id){
+        let sale = this.props.saleList.find(sale => sale.key === id);
+        if(sale){
+            this.state.sale = sale;
+        }
+        //sale not found, we go to root route
+        else{
+            this.props.history.pushState(null, '/');
         }
     }
     createSale(){
-        base.push('props', {
+        let id = utils.generateId();
+        base.post(`props/${id}`, {
             data: this.state.sale
+        });
+        base.post(`info/${id}`, {
+            data: this.state.info
         });
         this.props.history.pushState(null, '/');
     }
@@ -44,60 +63,77 @@ class Sale extends React.Component{
         base.post(`props/${this.props.params.saleId}`, {
             data: this.state.sale
         });
+        base.post(`info`, {
+            data: { [this.props.params.saleId]: this.state.info}
+        });
         this.props.history.pushState(null, '/');
     }
     deleteSale(){
         base.post(`props/${this.props.params.saleId}`, {
             data: null
         });
+        base.post(`info/${this.props.params.saleId}`, {
+            data: null
+        });
         this.props.history.pushState(null, '/');
     }
+    componentWillReceiveProps(nextProps){
+        if(nextProps.params.saleId !== this.props.params.saleId){
+            base.removeBinding(this.infoRef);
+            if(nextProps.params.saleId){
+                this.infoRef = base.bindToState(`info/${nextProps.params.saleId}`, {
+                    context: this,
+                    state: 'info'
+                });
+            }
+            this.setSale(nextProps.params.saleId);
+        }
+    }
     render(){
-        let action = this.props.location.query.action;
-        let isCreating = action === AppConstants.CREATE_SALE;
-        let isUpdating = action === AppConstants.UPDATE_SALE;
-        let isEnabled = isCreating || isUpdating;
-        let nextPath = isCreating? '/': '/list'
+        let isCreating = !this.props.params.saleId;
+        let isOwner = this.state.sale.owner === baseUtils.getUID();
+        let isUpdating = !isCreating;
         return (
-        <Form>
-            <LocationSelector
-                handler={(value) => this.setState((prevState)=> {
-                    prevState.sale.loc = +value;
-                    return (
-                        {sale: prevState.sale}
-                    )
-                })}
-                value={""+this.state.sale.loc}
-                isEnabled={isEnabled}/>
-            <PriceSelector/>
-            <TimeSelector
-                handler={(value) => this.setState((prevState)=> {
-                    prevState.sale.time = +value;
-                    return (
-                        {sale: prevState.sale}
-                    )
-                })}
-                value={""+this.state.sale.time}
-                isEnabled={isEnabled}/>
-
-            <div className="mui--no-user-select">
-                <label>information</label>
-            <TextareaInput
-                value={this.state.info}
-                disabled={isEnabled? "" : "disabled"}
-                onChange={(el)=> this.setState({info: el.target.value})}
-            />
-            </div>
-
+        <Card>
+            <CardText>
+                <LocationSelector
+                    handler={(e,i,value) => this.setState((prevState)=> {
+                        prevState.sale.loc = +value;
+                        return (
+                            {sale: prevState.sale}
+                        )
+                    })}
+                    value={''+this.state.sale.loc}
+                    isEnabled={isOwner || isCreating}
+                />
+                <PriceSelector/>
+                <TimeSelector
+                    handler={(e,i,value) => this.setState((prevState)=> {
+                        prevState.sale.time = +value;
+                        return (
+                            {sale: prevState.sale}
+                        )
+                    })}
+                    value={''+this.state.sale.time}
+                    isEnabled={isOwner || isCreating}
+                />
+                <InformationField
+                    defaultValue={this.state.info}
+                    value={typeof(this.state.info) === 'string'? this.state.info : ''}
+                    disabled={!(isOwner || isCreating)}
+                    handler={(el)=> this.setState({info: el.target.value})}
+                />
+            </CardText>
             <FormButtons
-                isUpdating={isUpdating}
+                isUpdating={isUpdating && isOwner}
                 isCreating={isCreating}
                 createHandler={()=> this.createSale()}
                 updateHandler={()=> this.updateSale()}
                 deleteHandler={()=> this.deleteSale()}
-                cancelHandler={()=> this.props.history.pushState(null,nextPath)}
+                cancelHandler={()=> this.props.history.pushState(null,'/')}
             />
-        </Form>
+            {(isUpdating && !isOwner) && <Notification initialState={true} message='You cannot edit this sale'/>}
+        </Card>
         )
     }
 }

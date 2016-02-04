@@ -1,7 +1,6 @@
 import Rebase from 're-base';
 
-const base = Rebase.createClass('https://mcgill-samosa-search.firebaseio.com');
-
+const base = Rebase.createClass(FIREBASE_URL);
 const baseUtils = {
     getUID(){
         let auth = base.getAuth();
@@ -14,6 +13,6 @@ const baseUtils = {
         uid = uid || null;
         return uid !== null;
     }
-}
+};
 
 export {base, baseUtils};

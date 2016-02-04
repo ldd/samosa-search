@@ -1,18 +1,20 @@
 import React from 'react';
-import Select from '../../../node_modules/muicss/lib/react/select';
-import SelectItem from '../../../node_modules/muicss/lib/react/select-item';
+import SelectField from 'material-ui/lib/select-field';
+import MenuItem from 'material-ui/lib/menus/menu-item';
 import AppConstants from '../../constants/constants';
 
-const LocationSelector = (props) => (
+const LocationSelector = (props) => {
+    return(
     <div>
-        <label>location</label>
-        <Select isDisabled={!props.isEnabled}
+        <SelectField disabled={!props.isEnabled}
+                floatingLabelText='location'
                 value={props.value}
                 onChange={props.handler}>
-            <SelectItem value={"0"}   label={AppConstants.locations[0]} />
-            <SelectItem value={"1"}  label={AppConstants.locations[1]} />
-            <SelectItem value={"2"} label={AppConstants.locations[2]} />
-        </Select>
+            <MenuItem value={"0"}   primaryText={AppConstants.locations[0]} />
+            <MenuItem value={"1"}  primaryText={AppConstants.locations[1]} />
+            <MenuItem value={"2"} primaryText={AppConstants.locations[2]} />
+        </SelectField>
     </div>
-);
+    )
+}
 export default LocationSelector;
