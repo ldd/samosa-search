@@ -19,6 +19,7 @@ class Sale extends React.Component{
                 loc: 0,
                 price: 0,
                 time: 0,
+                confirmed: false,
                 owner: baseUtils.getUID()
             },
             info: ''
@@ -48,6 +49,12 @@ class Sale extends React.Component{
         else{
             this.props.history.pushState(null, '/');
         }
+    }
+    confirmSale(){
+        base.post(`props/${this.props.params.saleId}/confirmed`, {
+            data: true
+        });
+        this.props.history.pushState(null, '/');
     }
     createSale(){
         let id = utils.generateId();
@@ -92,7 +99,8 @@ class Sale extends React.Component{
     render(){
         let isCreating = !this.props.params.saleId;
         let isOwner = this.state.sale.owner === baseUtils.getUID();
-        let isUpdating = !isCreating;
+        let isLoggedIn = baseUtils.isLoggedIn();
+        let isConfirmed = this.state.sale.confirmed;
         return (
         <Card>
             <CardText>
@@ -125,14 +133,16 @@ class Sale extends React.Component{
                 />
             </CardText>
             <FormButtons
-                isUpdating={isUpdating && isOwner}
+                isUpdating={isOwner && !isCreating}
+                isConfirming={!isOwner && !isConfirmed && isLoggedIn}
                 isCreating={isCreating}
                 createHandler={()=> this.createSale()}
                 updateHandler={()=> this.updateSale()}
                 deleteHandler={()=> this.deleteSale()}
+                confirmHandler={()=>this.confirmSale()}
                 cancelHandler={()=> this.props.history.pushState(null,'/')}
             />
-            {(isUpdating && !isOwner) && <Notification initialState={true} message='You cannot edit this sale'/>}
+            {(!isCreating && !isOwner) && <Notification initialState={true} message='You cannot edit this sale'/>}
         </Card>
         )
     }

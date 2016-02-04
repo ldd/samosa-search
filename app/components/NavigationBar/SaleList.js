@@ -3,7 +3,7 @@ import AppConstants from '../../constants/constants';
 import SamosaSearchAPI from '../../api/samosaSearchAPI';
 import List from '../../../node_modules/material-ui/lib/lists/list';
 import ListItem from '../../../node_modules/material-ui/lib/lists/list-item';
-import {base} from '../../base/base';
+import {baseUtils} from '../../base/base';
 
 class SaleList extends React.Component{
     constructor(props){
@@ -32,7 +32,7 @@ class SaleList extends React.Component{
     filter(caseName, saleList){
         switch(caseName){
             case 'isOwner':
-                let uid = base.getUID();
+                let uid = baseUtils.getUID();
                 return saleList.filter(el => el.owner === uid);
             case 'isConfirmed':
                 return saleList.filter(el => el.confirmed);

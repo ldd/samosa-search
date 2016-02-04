@@ -57,13 +57,11 @@ class Options extends React.Component{
                     <RadioButton
                         value='isConfirmed'
                         label='show confirmed'
-                        disabled={true}
                         style={{marginBottom:16}}
                     />
                     <RadioButton
                         value='isUnconfirmed'
                         label='show unconfirmed'
-                        disabled={true}
                         style={{marginBottom:16}}
                     />
                 </RadioButtonGroup>
