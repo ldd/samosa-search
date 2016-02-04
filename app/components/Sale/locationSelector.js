@@ -16,5 +16,5 @@ const LocationSelector = (props) => {
         </SelectField>
     </div>
     )
-}
+};
 export default LocationSelector;

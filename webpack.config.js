@@ -42,6 +42,6 @@ module.exports = {
             // Make sure FIREBASE_URL, BING_KEY, MAPZEN_MATRIX_KEY are defined
             // when using webpack with the option --define "key"="value".
             // They will not be defined here.
-        }),
+        })
     ]
 };
