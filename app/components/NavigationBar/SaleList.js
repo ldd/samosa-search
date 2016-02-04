@@ -3,6 +3,7 @@ import AppConstants from '../../constants/constants';
 import SamosaSearchAPI from '../../api/samosaSearchAPI';
 import List from '../../../node_modules/material-ui/lib/lists/list';
 import ListItem from '../../../node_modules/material-ui/lib/lists/list-item';
+import {base} from '../../base/base';
 
 class SaleList extends React.Component{
     constructor(props){
@@ -19,9 +20,6 @@ class SaleList extends React.Component{
             this.getDistances(nextProps.saleList);
         }
     }
-    //shouldComponentUpdate(_,nextState){
-    //    return nextState.distances !== this.state.distances;
-    //}
     getDistances(saleList){
         if (saleList.length > 0) {
             SamosaSearchAPI.getDistances(saleList).then((results)=> this.setState({distances: results}));
@@ -31,10 +29,35 @@ class SaleList extends React.Component{
         let distance = this.state.distances && this.state.distances[loc] && this.state.distances[loc].distance;
         return distance < 1? distance*1000 + ' m': distance + ' km';
     }
+    filter(caseName, saleList){
+        switch(caseName){
+            case 'isOwner':
+                let uid = base.getUID();
+                return saleList.filter(el => el.owner === uid);
+            case 'isConfirmed':
+                return saleList.filter(el => el.confirmed);
+            case 'isUnconfirmed':
+                return saleList.filter(el => !el.confirmed);
+            default:
+                return Array.from(saleList);
+        }
+    }
+    applySort(caseName, saleList){
+        switch(caseName){
+            case 'time':
+                return saleList.sort((el1, el2) => el1.time > el2.time);
+            case 'loc':
+                return saleList.sort((el1, el2) => el1.loc > el2.loc);
+            default:
+                return saleList;
+        }
+    }
     render(){
+        let saleList = this.filter(this.props.filterBy,this.props.saleList);
+        this.applySort(this.props.sortBy, saleList);
         return (
         <List>
-            {this.props.saleList.map((sale, i) => <ListItem
+            {saleList.map((sale, i) => <ListItem
                 onTouchTap={()=>{
                 this.props.history.pushState(null, `/sale/${sale.key}`);
                 this.props.closeHandler();

@@ -1,5 +1,7 @@
 import React from 'react';
-import {GoogleMapLoader, GoogleMap, Marker} from 'react-google-maps';
+import GoogleMapLoader from 'react-google-maps/lib/GoogleMapLoader';
+import GoogleMap from 'react-google-maps/lib/GoogleMap';
+import Marker from 'react-google-maps/lib/Marker';
 import SamosaSearchAPI from '../api/samosaSearchAPI';
 
 class SimpleMap extends React.Component {

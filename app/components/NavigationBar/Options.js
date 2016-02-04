@@ -2,7 +2,6 @@ import React from 'react';
 
 import List from '../../../node_modules/material-ui/lib/lists/list';
 import ListItem from '../../../node_modules/material-ui/lib/lists/list-item';
-import Toggle from '../../../node_modules/material-ui/lib/toggle';
 import RadioButton from '../../../node_modules/material-ui/lib/radio-button';
 import RadioButtonGroup from '../../../node_modules/material-ui/lib/radio-button-group';
 
@@ -12,42 +11,64 @@ class Options extends React.Component{
     }
     render(){
         return(
-        <List subheader='Sort&Filter Options'>
-            <ListItem primaryText='Sort' rightToggle={<Toggle />} />
+        <List>
+            <List subheader='sort by'>
             <ListItem disabled={true}>
-                <RadioButtonGroup name='shipSpeed' defaultSelected='jekyll'>
+                <RadioButtonGroup
+                    name='shipSpeed'
+                    defaultSelected={this.props.sortBy}
+                    onChange={(e, value)=> this.props.changeSort(value)}
+                >
                     <RadioButton
-                        value='closest'
-                        label='closest'
+                        value='none'
+                        label='(none)'
                         style={{marginBottom:16}}
                     />
                     <RadioButton
-                        value='soonest'
-                        label='soonest'
+                        value='loc'
+                        label='location'
+                        style={{marginBottom:16}}
+                    />
+                    <RadioButton
+                        value='time'
+                        label='time'
                         style={{marginBottom:16}}
                     />
                 </RadioButtonGroup>
             </ListItem>
-            <ListItem primaryText='Filter' rightToggle={<Toggle />} />
+            </List>
+            <List subheader='filter by'>
             <ListItem disabled={true}>
-                <RadioButtonGroup name='shipSpeed' defaultSelected='jekyll'>
+                <RadioButtonGroup
+                    name='shipSpeed'
+                    defaultSelected={this.props.filterBy}
+                    onChange={(e, value)=> this.props.changeFilter(value)}
+                >
                     <RadioButton
-                        value='show confirmed'
-                        label='show confirmed'
-                        style={{marginBottom:16}}
-                    />
-                    <RadioButton
-                        value='show all'
+                        value='all'
                         label='show all'
                         style={{marginBottom:16}}
                     />
                     <RadioButton
-                        value='show unconfirmed'
+                        value='isOwner'
+                        label='show owned'
+                        style={{marginBottom:16}}
+                    />
+                    <RadioButton
+                        value='isConfirmed'
+                        label='show confirmed'
+                        disabled={true}
+                        style={{marginBottom:16}}
+                    />
+                    <RadioButton
+                        value='isUnconfirmed'
                         label='show unconfirmed'
+                        disabled={true}
                         style={{marginBottom:16}}
                     />
                 </RadioButtonGroup>
             </ListItem>
+            </List>
         </List>
         )
     }
