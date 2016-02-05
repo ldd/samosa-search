@@ -53,3 +53,6 @@ proguard/
 
 # Android Studio captures folder
 captures/
+
+# project specific
+app/src/main/assets
