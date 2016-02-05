@@ -8,5 +8,6 @@ node_modules
 .idea
 
 #project specific
-public/bundle.js*
-scripts
+public/bundle.js
+*.js.map
+scripts/_*
