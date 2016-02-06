@@ -1,5 +1,5 @@
 import {Component} from 'react';
-import {base} from '../base/base';
+import {base} from '../../base/base';
 import MainRender from './MainRender';
 
 
@@ -8,7 +8,8 @@ class Main extends Component{
         super(props);
         this.state={
             open: false,
-            saleList: []
+            saleList: [],
+            selectedTab: 'map'
         }
     }
     componentDidMount(){

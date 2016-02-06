@@ -1,9 +1,9 @@
 import React from 'react';
-import {baseUtils} from '../base/base';
-import FloatingActionButton from 'material-ui/lib/floating-action-button';
-import ContentAdd from 'material-ui/lib/svg-icons/content/add';
-import NavigationBar from './NavigationBar/NavigationBarController';
-import ApplicationBar from './ApplicationBar';
+import {baseUtils} from '../../base/base';
+import FloatingActionButton from '../../../node_modules/material-ui/lib/floating-action-button';
+import ContentAdd from '../../../node_modules/material-ui/lib/svg-icons/content/add';
+import NavigationBar from './../NavigationBar/NavigationBarController';
+import ApplicationBar from './../ApplicationBar';
 
 function MainRender(props, state){
     let isLoggedIn = baseUtils.isLoggedIn();
