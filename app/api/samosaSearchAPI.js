@@ -1,6 +1,5 @@
-import utils from '../utils/utils';
 import positions from '../constants/positions';
-
+import providers from '../constants/providers';
 const samosaSearchAPI = {
     saleList: [],
     i:0,
@@ -54,7 +53,7 @@ const samosaSearchAPI = {
     },
     getMapFromLocation(latitude, longitude, saleList, width, height){
         let httpSrc = 'https://dev.virtualearth.net/REST/V1/Imagery/Map/Road';
-        let mapKey = BING_KEY;
+        let mapKey = providers.BING_KEY;
         let pos = null;
         let saleLocations = saleList.reduce(function(prev, next){
             pos = positions[next.loc];
@@ -98,7 +97,7 @@ const samosaSearchAPI = {
                 //we update the cached distances, the keyMap and return the updated keyMap
                 this.cachedDistances = distances;
                 return this._setDistances(distances, newKeyMap);
-            });
+            }).catch(err => console.log(err));
         }
     },
     _getUniqueKeys(arr){
@@ -137,10 +136,11 @@ const samosaSearchAPI = {
      */
     requestDistances(locations){
         let httpSrc = 'https://matrix.mapzen.com/one_to_many?json';
-        let key = MAPZEN_MATRIX_KEY;
+        let key = providers.MAPZEN_MATRIX_KEY;
         let url = `${httpSrc}={"locations":${locations},"costing":"pedestrian"}&id=mosa&api_key=${key}`;
+
         //perform the actual GET request and parse it
-        return utils.getJSON(url);
+        return fetch(url).then(res=>res.json());
     }
 };
 

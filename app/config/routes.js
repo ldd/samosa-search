@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import Main from '../components/Main';
+import Main from '../components/Main/Main';
 import Sale from '../components/Sale/SaleController';
-import SaleMap from '../components/SaleMap';
+import SaleMap from '../components/MapView/MapView';
 
 export default (
   <Route path='/' component={Main}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import AppBar from '../../../node_modules/material-ui/lib/app-bar';
 import LeftNav from '../../../node_modules/material-ui/lib/left-nav';
-import SaleList from './SaleList';
+import SaleList from './../SaleList/SaleList';
 
 import IconButton from '../../../node_modules/material-ui/lib/icon-button';
 import NavigationExpandMore from '../../../node_modules/material-ui/lib/svg-icons/navigation/expand-more';

@@ -1,15 +1,15 @@
 'use strict';
 import React, {
-  AppRegistry,
-  Component,
-  StyleSheet,
+    AppRegistry,
+    Component,
+    StyleSheet,
 } from 'react-native';
-import Main from './app/components/Main';
+import Main from './app/components/Main/Main';
 
 class SamosaSearch extends Component {
   render() {
     return (
-      <Main style={styles.container}/>
+        <Main style={styles.container}/>
     );
   }
 }
