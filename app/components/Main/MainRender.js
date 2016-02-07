@@ -19,9 +19,15 @@ function MainRender(props, state){
                 saleList={state.saleList}
                 history={props.history}
                 open={state.open}
+                filterBy={this.state.filterBy}
+                sortBy={this.state.sortBy}
+                changeFilter={(val)=>this.changeFilter(val)}
+                changeSort={(val)=>this.changeSort(val)}
                 closeHandler={()=> this.setState({open: false})}/>
+
             {/*add the sale list as a property to the child*/}
             {React.cloneElement(props.children, {saleList: state.saleList})}
+
             {isLoggedIn && isRootRoute && <FloatingActionButton
                 style={{position: 'absolute', bottom:5, right:5}}
                 onClick={()=>{

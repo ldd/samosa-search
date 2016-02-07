@@ -5,29 +5,30 @@ import ListItem from 'material-ui/lib/lists/list-item';
 import RadioButton from 'material-ui/lib/radio-button';
 import RadioButtonGroup from 'material-ui/lib/radio-button-group';
 
+import AppConstants from '../../constants/constants';
 function Options(props){
     return(
         <List>
             <List subheader='sort by'>
                 <ListItem disabled={true}>
                     <RadioButtonGroup
-                        name='shipSpeed'
+                        name='sort'
                         defaultSelected={props.sortBy}
                         onChange={(e, value)=> props.changeSort(value)}
                     >
                         <RadioButton
-                            value='none'
-                            label='(none)'
+                            value='0'
+                            label={AppConstants.sorters[0]}
                             style={{marginBottom:16}}
                         />
                         <RadioButton
-                            value='loc'
-                            label='location'
+                            value='1'
+                            label={AppConstants.sorters[1]}
                             style={{marginBottom:16}}
                         />
                         <RadioButton
-                            value='time'
-                            label='time'
+                            value='2'
+                            label={AppConstants.sorters[2]}
                             style={{marginBottom:16}}
                         />
                     </RadioButtonGroup>
@@ -36,28 +37,28 @@ function Options(props){
             <List subheader='filter by'>
                 <ListItem disabled={true}>
                     <RadioButtonGroup
-                        name='shipSpeed'
+                        name='filter'
                         defaultSelected={props.filterBy}
                         onChange={(e, value)=> props.changeFilter(value)}
                     >
                         <RadioButton
-                            value='all'
-                            label='show all'
+                            value='0'
+                            label={AppConstants.filters[0]}
                             style={{marginBottom:16}}
                         />
                         <RadioButton
-                            value='isOwner'
-                            label='show owned'
+                            value='1'
+                            label={AppConstants.filters[1]}
                             style={{marginBottom:16}}
                         />
                         <RadioButton
-                            value='isConfirmed'
-                            label='show confirmed'
+                            value='2'
+                            label={AppConstants.filters[2]}
                             style={{marginBottom:16}}
                         />
                         <RadioButton
-                            value='isUnconfirmed'
-                            label='show unconfirmed'
+                            value='3'
+                            label={AppConstants.filters[3]}
                             style={{marginBottom:16}}
                         />
                     </RadioButtonGroup>

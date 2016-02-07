@@ -12,9 +12,7 @@ class NavigationBar extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            optionsOpen: false,
-            filterBy: 'all',
-            sortBy: 'none'
+            optionsOpen: false
         }
     }
     render(){
@@ -35,13 +33,13 @@ class NavigationBar extends React.Component{
                 </IconButton>}
             />
             {this.state.optionsOpen? <Options
-                filterBy={this.state.filterBy}
-                sortBy={this.state.sortBy}
-                changeFilter={(value)=>this.setState({filterBy: value})}
-                changeSort={(value)=>this.setState({sortBy: value})}
+                filterBy={this.props.filterBy}
+                sortBy={this.props.sortBy}
+                changeFilter={(value)=>this.props.changeFilter(value)}
+                changeSort={(value)=>this.props.changeSort(value)}
             />:<SaleList
-                filterBy={this.state.filterBy}
-                sortBy={this.state.sortBy}
+                filterBy={this.props.filterBy}
+                sortBy={this.props.sortBy}
                 closeHandler={this.props.closeHandler}
                 saleList={this.props.saleList}
                 history={this.props.history}
