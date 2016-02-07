@@ -20,9 +20,8 @@ const samosaSearchAPI = {
         }
         else{
             return navigator.geolocation.getCurrentPosition((pos)=> {
-                //this.location.lat = pos.coords.latitude;
-                //this.location.lon = pos.coords.longitude;
-                console.log(pos);
+                this.location.lat = pos.coords.latitude;
+                this.location.lon = pos.coords.longitude;
                 success(pos);
             }, error);
         }
