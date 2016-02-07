@@ -1,26 +1,13 @@
-import {Component} from 'react';
-import {base} from '../../base/base';
 import MainRender from './MainRender';
+import MainBase from './MainBase';
 
-
-class Main extends Component{
+class Main extends MainBase{
     constructor(props){
         super(props);
         this.state={
             open: false,
-            saleList: [],
-            selectedTab: 'map'
+            saleList: []
         }
-    }
-    componentDidMount(){
-        this.ref = base.bindToState('props', {
-            context: this,
-            asArray: true,
-            state: 'saleList'
-        });
-    }
-    componentWillUnmount(){
-        base.removeBinding(this.ref);
     }
     render(){
         return MainRender.call(this, this.props, this.state);

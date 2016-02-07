@@ -5,7 +5,7 @@ import SaleList from './../SaleList/SaleList';
 
 import IconButton from '../../../node_modules/material-ui/lib/icon-button';
 import NavigationExpandMore from '../../../node_modules/material-ui/lib/svg-icons/navigation/expand-more';
-import Options from './Options';
+import Options from './../Options/Options';
 import NavigationClose from '../../../node_modules/material-ui/lib/svg-icons/navigation/close';
 
 class NavigationBar extends React.Component{
