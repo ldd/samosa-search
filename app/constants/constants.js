@@ -27,6 +27,19 @@ const constants = {
         1: '8:30 AM',
         2: '9:00 AM',
         3: '9:30 AM'
+    },
+    //filters
+    filters:{
+        0: '(all)',
+        1: 'owned',
+        2: 'confirmed',
+        3: 'unconfirmed'
+    },
+    //sorters
+    sorters:{
+        0: '(none)',
+        1: 'time',
+        2: 'location'
     }
 };
 

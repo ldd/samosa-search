@@ -6,7 +6,9 @@ class Main extends MainBase{
         super(props);
         this.state={
             open: false,
-            saleList: []
+            saleList: [],
+            filterBy: '0',
+            sortBy: '0'
         }
     }
     render(){

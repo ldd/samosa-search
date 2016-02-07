@@ -27,12 +27,12 @@ class SaleListBase extends React.Component{
     }
     filter(caseName, saleList){
         switch(caseName){
-            case 'isOwner':
+            case '1'://isOwner
                 let uid = baseUtils.getUID();
                 return saleList.filter(el => el.owner === uid);
-            case 'isConfirmed':
+            case '2'://isConfirmed
                 return saleList.filter(el => el.confirmed);
-            case 'isUnconfirmed':
+            case '3'://isUnconfirmed
                 return saleList.filter(el => !el.confirmed);
             default:
                 return Array.from(saleList);
@@ -40,9 +40,9 @@ class SaleListBase extends React.Component{
     }
     applySort(caseName, saleList){
         switch(caseName){
-            case 'time':
+            case '1'://by time
                 return saleList.sort((el1, el2) => el1.time > el2.time);
-            case 'loc':
+            case '2'://by location
                 return saleList.sort((el1, el2) => el1.loc > el2.loc);
             default:
                 return saleList;
