@@ -12,6 +12,7 @@ import React, {
 import Icon from '../../../node_modules/react-native-vector-icons/Ionicons';
 import MapView from './../MapView/MapView';
 import SaleList from './../SaleList/SaleList';
+import Options from './../Options/Options';
 
 function MainRender(props, state){
         return (
@@ -54,7 +55,7 @@ function MainRender(props, state){
                             selectedTab: 'settings'
                         });
                     }}>
-                        <View><Text>Settings</Text></View>
+                        <Options/>
                     </Icon.TabBarItem>
                     <Icon.TabBarItem
                         title='Log In'
