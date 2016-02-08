@@ -1,12 +1,10 @@
 'use strict';
 import React, {
     Component,
-    Navigator,
-    View,
-    Text,
-    StyleSheet
+    Navigator
 } from 'react-native';
 import SaleList from '../SaleList/SaleList';
+import Sale from '../Sale/Sale';
 
 class NavigationBarController extends Component{
     constructor(props){
@@ -26,37 +24,25 @@ class NavigationBarController extends Component{
                     filterBy={this.props.filterBy}
                     sortBy={this.props.sortBy}
                     name={route.name}
-                    goToSale={() => {
+                    goToSale={(id) => {
                         navigator.push({
                             name: 'Sale',
-                            index: 1
+                            index: 1,
+                            id: id
                         })
                     }}
                 />):(
-                <View
-                    name={route.name}
-                    style={styles.wrapper}
-                    goToSales={() => {
-                        if(route.index > 0){
-                            navigator.pop()
-                        }
+                <Sale
+                    saleList={this.props.saleList}
+                    params={{saleId: route.id}}
+                    goToSaleList={() => {
+                        navigator.pop();
                     }}
-                >
-                    <Text>
-                        (A sale component should go here)
-                    </Text>
-                </View>
+                />
                 )
             )}
         />
     );
     }
 }
-const styles = StyleSheet.create({
-    wrapper: {
-        margin: 10,
-        padding: 10
-    }
-});
-
 export default NavigationBarController;

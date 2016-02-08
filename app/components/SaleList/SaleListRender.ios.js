@@ -3,6 +3,7 @@ import React, {
     Text,
     View,
     ListView,
+    ScrollView,
     TouchableHighlight
 } from 'react-native';
 import AppConstants from '../../constants/constants';
@@ -16,7 +17,8 @@ function SaleList(props, state){
         dataSource={c}
         renderRow={(sale) => (
         <View style={ styles.saleWrapper }>
-        <TouchableHighlight onPress={()=> props.goToSale()}>
+        <ScrollView>
+        <TouchableHighlight onPress={()=> props.goToSale(sale.key)}>
             <View style={ styles.sale }>
                 <Text style={ styles.saleLocation }>
                     {AppConstants.locations[sale.loc]}
@@ -47,6 +49,7 @@ function SaleList(props, state){
                 </View>
             </View>
             </TouchableHighlight>
+        </ScrollView>
         </View>
     )}
     />
