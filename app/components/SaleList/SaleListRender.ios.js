@@ -16,7 +16,7 @@ function SaleList(props, state){
         dataSource={c}
         renderRow={(sale) => (
         <View style={ styles.saleWrapper }>
-        <TouchableHighlight>
+        <TouchableHighlight onPress={()=> props.goToSale()}>
             <View style={ styles.sale }>
                 <Text style={ styles.saleLocation }>
                     {AppConstants.locations[sale.loc]}
