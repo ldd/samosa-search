@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import Main from '../components/Main/Main';
-import Sale from '../components/Sale/SaleController';
+import Sale from '../components/Sale/Sale';
 import SaleMap from '../components/MapView/MapView';
 
 export default (
