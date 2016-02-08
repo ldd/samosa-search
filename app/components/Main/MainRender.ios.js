@@ -11,7 +11,7 @@ import React, {
 } from 'react-native';
 import Icon from '../../../node_modules/react-native-vector-icons/Ionicons';
 import MapView from './../MapView/MapView';
-import SaleList from './../SaleList/SaleList';
+import NavigationBarController from './../NavigationBar/NavigationBarController';
 import Options from './../Options/Options';
 
 function MainRender(props, state){
@@ -42,7 +42,7 @@ function MainRender(props, state){
                             selectedTab: 'sales'
                         });
                     }}>
-                        <SaleList
+                        <NavigationBarController
                             saleList={state.saleList}
                             filterBy={state.filterBy}
                             sortBy={state.sortBy}
