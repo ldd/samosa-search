@@ -7,8 +7,8 @@ class Main extends MainBase{
         this.state={
             saleList: [],
             selectedTab: 'map',
-            sortBy: '',
-            filterBy: ''
+            filterBy: '0',
+            sortBy: '0'
         }
     }
     render(){

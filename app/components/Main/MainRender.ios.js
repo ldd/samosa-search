@@ -42,8 +42,9 @@ function MainRender(props, state){
                     }}>
                         <SaleList
                             saleList={state.saleList}
-                            filterBy=''
-                            sortBy=''/>
+                            filterBy={state.filterBy}
+                            sortBy={state.sortBy}
+                        />
                     </Icon.TabBarItem>
                     <Icon.TabBarItem
                         title='Settings'
@@ -55,7 +56,12 @@ function MainRender(props, state){
                             selectedTab: 'settings'
                         });
                     }}>
-                        <Options/>
+                        <Options
+                            filterBy={state.filterBy}
+                            sortBy={state.sortBy}
+                            changeFilter={(val)=>this.changeFilter(val)}
+                            changeSort={(val)=>this.changeSort(val)}
+                        />
                     </Icon.TabBarItem>
                     <Icon.TabBarItem
                         title='Log In'
