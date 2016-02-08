@@ -9,9 +9,10 @@ const TimeSelector = (props) => (
                      floatingLabelText='time'
                      value={props.value}
                      onChange={props.handler}>
-            <MenuItem value={"0"} primaryText={AppConstants.times[0]} />
-            <MenuItem value={"1"} primaryText={AppConstants.times[1]} />
-            <MenuItem value={"2"} primaryText={AppConstants.times[2]} />
+            {AppConstants.times.map((item,i) => <MenuItem
+                value={''+i}
+                primaryText={item}/>)
+            }
         </SelectField>
     </div>
 );

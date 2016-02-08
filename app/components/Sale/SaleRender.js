@@ -20,22 +20,18 @@ function SaleRender(props,state){
                 <CardText>
                     <LocationSelector
                         handler={(e,i,value) => this.setState((prevState)=> {
-                        prevState.sale.loc = +value;
-                        return (
-                            {sale: prevState.sale}
-                        )
-                    })}
+                            prevState.sale.loc = +value;
+                            return {sale: prevState.sale};
+                        })}
                         value={''+state.sale.loc}
                         isEnabled={isOwner || isCreating}
                     />
                     <PriceSelector/>
                     <TimeSelector
                         handler={(e,i,value) => this.setState((prevState)=> {
-                        prevState.sale.time = +value;
-                        return (
-                            {sale: prevState.sale}
-                        )
-                    })}
+                            prevState.sale.time = +value;
+                            return {sale: prevState.sale};
+                        })}
                         value={''+state.sale.time}
                         isEnabled={isOwner || isCreating}
                     />

@@ -16,21 +16,13 @@ function Options(props){
                         defaultSelected={props.sortBy}
                         onChange={(e, value)=> props.changeSort(value)}
                     >
+                        {[AppConstants.sorters.map((sorterName, i) => (
                         <RadioButton
-                            value='0'
-                            label={AppConstants.sorters[0]}
+                            value={''+i}
+                            label={sorterName}
                             style={{marginBottom:16}}
                         />
-                        <RadioButton
-                            value='1'
-                            label={AppConstants.sorters[1]}
-                            style={{marginBottom:16}}
-                        />
-                        <RadioButton
-                            value='2'
-                            label={AppConstants.sorters[2]}
-                            style={{marginBottom:16}}
-                        />
+                        ))]}
                     </RadioButtonGroup>
                 </ListItem>
             </List>
@@ -41,26 +33,13 @@ function Options(props){
                         defaultSelected={props.filterBy}
                         onChange={(e, value)=> props.changeFilter(value)}
                     >
+                        {[AppConstants.sorters.map((filterName, i) => (
                         <RadioButton
-                            value='0'
-                            label={AppConstants.filters[0]}
+                            value={''+i}
+                            label={filterName}
                             style={{marginBottom:16}}
                         />
-                        <RadioButton
-                            value='1'
-                            label={AppConstants.filters[1]}
-                            style={{marginBottom:16}}
-                        />
-                        <RadioButton
-                            value='2'
-                            label={AppConstants.filters[2]}
-                            style={{marginBottom:16}}
-                        />
-                        <RadioButton
-                            value='3'
-                            label={AppConstants.filters[3]}
-                            style={{marginBottom:16}}
-                        />
+                        ))]}
                     </RadioButtonGroup>
                 </ListItem>
             </List>
