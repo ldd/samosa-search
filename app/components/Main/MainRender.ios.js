@@ -28,7 +28,9 @@ function MainRender(props, state){
                         selectedTab: 'map'
                     });
                 }}>
-                        <MapView />
+                        <MapView
+                            saleList={state.saleList}
+                        />
                     </Icon.TabBarItem>
                     <Icon.TabBarItem
                         title='Sales'

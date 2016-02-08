@@ -3,7 +3,7 @@ import React, {
     StyleSheet,
     MapView,
 } from 'react-native';
-
+import SamosaSearchAPI from '../../api/samosaSearchAPI';
 function MapViewRender(props,state){
     return (
         <MapView
@@ -11,15 +11,22 @@ function MapViewRender(props,state){
             initialRegion={{
                             latitude: state.lat,
                             longitude: state.lon,
-                            latitudeDelta: 0.0922,
-                            longitudeDelta: 0.0421
+                            latitudeDelta: 0.01,
+                            longitudeDelta: 0.01
                         }}
             region={{
                 latitude: state.lat,
                 longitude: state.lon,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.01
             }}
+            annotations={
+                SamosaSearchAPI.getTags(props.saleList).map((marker) => {
+                  return (
+                    {longitude: marker.position.lng, latitude: marker.position.lat, title: ''+marker.count}
+                  );
+                })
+            }
         />
     );
 }
