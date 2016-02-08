@@ -10,9 +10,10 @@ const LocationSelector = (props) => {
                 floatingLabelText='location'
                 value={props.value}
                 onChange={props.handler}>
-            <MenuItem value={"0"}   primaryText={AppConstants.locations[0]} />
-            <MenuItem value={"1"}  primaryText={AppConstants.locations[1]} />
-            <MenuItem value={"2"} primaryText={AppConstants.locations[2]} />
+            {AppConstants.locations.map((item,i) => <MenuItem
+                value={''+i}
+                primaryText={item}/>)
+            }
         </SelectField>
     </div>
     )
