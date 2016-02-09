@@ -34,7 +34,6 @@ const samosaSearchAPI = {
      */
     getTags(saleList){
         let pos = null;
-        let length = 0;
         let uniqueKeyCount = saleList.reduce(function(prev, next){
             pos = positions[next.loc];
             // if we have a previous location value, we increment the count there.
@@ -44,12 +43,10 @@ const samosaSearchAPI = {
             // Otherwise, we give a new object containing the position and a count of 1
             else{
                 prev[next.loc] = {position: {lat: pos.lat, lng: pos.lon}, count: 1};
-                length +=1;
             }
             return prev;
         },{});
-        uniqueKeyCount.length = length;
-        return Array.prototype.slice.call(uniqueKeyCount);
+        return Object.keys(uniqueKeyCount).map(key=>uniqueKeyCount[key]);
     },
     getMapFromLocation(latitude, longitude, saleList, width, height){
         let httpSrc = 'https://dev.virtualearth.net/REST/V1/Imagery/Map/Road';
