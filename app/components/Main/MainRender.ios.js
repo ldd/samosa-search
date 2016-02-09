@@ -1,18 +1,20 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
 'use strict';
 import React, {
     StyleSheet,
-    Text,
     TabBarIOS,
     View
 } from 'react-native';
-import Icon from '../../../node_modules/react-native-vector-icons/Ionicons';
+import FBSDKLogin from 'react-native-fbsdklogin';
+let {FBSDKLoginButton} = FBSDKLogin;
+import FBSDKCore from 'react-native-fbsdkcore';
+let {FBSDKAccessToken} = FBSDKCore;
+
+import Icon from 'react-native-vector-icons/Ionicons';
 import MapView from './../MapView/MapView';
 import NavigationBarController from './../NavigationBar/NavigationBarController';
 import Options from './../Options/Options';
+import {base} from '../../base/base';
+import ApplicationBar from '../ApplicationBar';
 
 function MainRender(props, state){
         return (
@@ -28,9 +30,12 @@ function MainRender(props, state){
                         selectedTab: 'map'
                     });
                 }}>
-                        <MapView
-                            saleList={state.saleList}
-                        />
+                        <View style={{flex: 1}}>
+                            <ApplicationBar name='Map'/>
+                            <MapView
+                                saleList={state.saleList}
+                            />
+                        </View>
                     </Icon.TabBarItem>
                     <Icon.TabBarItem
                         title='Sales'
@@ -58,12 +63,15 @@ function MainRender(props, state){
                             selectedTab: 'settings'
                         });
                     }}>
-                        <Options
-                            filterBy={state.filterBy}
-                            sortBy={state.sortBy}
-                            changeFilter={(val)=>this.changeFilter(val)}
-                            changeSort={(val)=>this.changeSort(val)}
-                        />
+                        <View style={{flex:1}}>
+                            <ApplicationBar name='Options'/>
+                            <Options
+                                filterBy={state.filterBy}
+                                sortBy={state.sortBy}
+                                changeFilter={(val)=>this.changeFilter(val)}
+                                changeSort={(val)=>this.changeSort(val)}
+                            />
+                        </View>
                     </Icon.TabBarItem>
                     <Icon.TabBarItem
                         title='Log In'
@@ -75,7 +83,32 @@ function MainRender(props, state){
                             selectedTab: 'login'
                         });
                     }}>
-                        <View><Text>Settings</Text></View>
+
+
+                    <View>
+                        <ApplicationBar name='Authentication'/>
+                        <FBSDKLoginButton
+                            onLoginFinished={(error, result) => {
+            if (error) {
+              alert('Error logging in');
+            } else {
+              if (result.isCancelled) {
+                alert('Login cancelled');
+              } else {
+                FBSDKAccessToken.getCurrentAccessToken(function(token){
+                    base.authWithOAuthToken('facebook', token.tokenString,function(){
+                        alert('Logged in');
+                    });
+                });
+              }
+            }
+          }}
+                                onLogoutFinished={() => alert('Logged out.')}
+                                readPermissions={[]}
+                                publishPermissions={[]}/>
+                        </View>
+
+
                     </Icon.TabBarItem>
                 </TabBarIOS>
             </View>
@@ -87,6 +120,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     tabBar:{
+        flex: 1
     },
     toolbar:{
         backgroundColor:'#81c04d',

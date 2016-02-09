@@ -39,6 +39,6 @@ function MainRender(props, state){
             }
         </div>
     )
-};
+}
 
 export default MainRender;

@@ -13,46 +13,46 @@ function SaleList(props, state){
     this.applySort(props.sortBy, saleList);
     let c = state.dataSource.cloneWithRows(saleList);
     return (
-    <ListView
-        dataSource={c}
-        renderRow={(sale) => (
-        <View style={ styles.saleWrapper }>
+    <View style={ styles.saleWrapper }>
         <ScrollView>
-        <TouchableHighlight onPress={()=> props.goToSale(sale.key)}>
-            <View style={ styles.sale }>
-                <Text style={ styles.saleLocation }>
-                    {AppConstants.locations[sale.loc]}
-                </Text>
-                <View style={ styles.saleInfo }>
-                    <Text style={ styles.saleInfoHeader }>
-                        TIME
-                    </Text>
-                    <Text style={ [styles.saleInfoValue] }>
-                        {AppConstants.times[sale.time]}
-                    </Text>
-                </View>
-                <View style={ styles.saleInfo }>
-                    <Text style={ styles.saleInfoHeader }>
-                        PRICE
-                    </Text>
-                    <Text style={ [styles.saleInfoValue, styles.regularPrice] }>
-                        $
-                    </Text>
-                </View>
-                <View style={ styles.saleInfo }>
-                    <Text style={ styles.saleInfoHeader }>
-                        DISTANCE
-                    </Text>
-                    <Text style={ styles.saleInfoValue }>
-                        {this.parseDistance(sale.loc)}
-                    </Text>
-                </View>
-            </View>
-            </TouchableHighlight>
+            <ListView
+            dataSource={c}
+            renderRow={(sale) => (
+                <TouchableHighlight onPress={()=> props.goToSale(sale.key)}>
+                    <View style={ styles.sale }>
+                        <Text style={ styles.saleLocation }>
+                            {AppConstants.locations[sale.loc]}
+                        </Text>
+                        <View style={ styles.saleInfo }>
+                            <Text style={ styles.saleInfoHeader }>
+                                TIME
+                            </Text>
+                            <Text style={ [styles.saleInfoValue] }>
+                                {AppConstants.times[sale.time]}
+                            </Text>
+                        </View>
+                        <View style={ styles.saleInfo }>
+                            <Text style={ styles.saleInfoHeader }>
+                                PRICE
+                            </Text>
+                            <Text style={ [styles.saleInfoValue, styles.regularPrice] }>
+                                $
+                            </Text>
+                        </View>
+                        <View style={ styles.saleInfo }>
+                            <Text style={ styles.saleInfoHeader }>
+                                DISTANCE
+                            </Text>
+                            <Text style={ styles.saleInfoValue }>
+                                {this.parseDistance(sale.loc)}
+                            </Text>
+                        </View>
+                    </View>
+                </TouchableHighlight>
+            )}
+            />
         </ScrollView>
-        </View>
-    )}
-    />
+    </View>
     )
 }
 var styles = StyleSheet.create({
@@ -80,7 +80,7 @@ var styles = StyleSheet.create({
         flex: 0.25,
         marginLeft: 15,
         marginRight: 15,
-        alignItems: 'center',
+        alignItems: 'center'
     },
     saleInfoHeader: {
         color: 'rgba( 0, 0, 0, 0.3 )',

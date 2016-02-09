@@ -39,15 +39,9 @@ function Options(props){
 }
 var styles = StyleSheet.create({
     optionsWrapper: {
-        margin: 10,
-        padding: 10
-    },
-    options:{
-        //padding: 10,
     },
     option:{
-        //margin: 10,
-        //padding: 10
+        margin: 20
     },
     title:{
         marginTop: 15,

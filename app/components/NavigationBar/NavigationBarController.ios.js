@@ -1,11 +1,12 @@
 'use strict';
 import React, {
     Component,
-    Navigator
+    Navigator,
+    View
 } from 'react-native';
 import SaleList from '../SaleList/SaleList';
 import Sale from '../Sale/Sale';
-
+import ApplicationBar from '../ApplicationBar';
 class NavigationBarController extends Component{
     constructor(props){
         super(props);
@@ -19,26 +20,44 @@ class NavigationBarController extends Component{
             }}
             renderScene={(route, navigator) => (
                 (route.index === 0) ? (
-                <SaleList
-                    saleList={this.props.saleList}
-                    filterBy={this.props.filterBy}
-                    sortBy={this.props.sortBy}
-                    name={route.name}
-                    goToSale={(id) => {
-                        navigator.push({
-                            name: 'Sale',
-                            index: 1,
-                            id: id
-                        })
-                    }}
-                />):(
-                <Sale
-                    saleList={this.props.saleList}
-                    params={{saleId: route.id}}
-                    goToSaleList={() => {
-                        navigator.pop();
-                    }}
-                />
+                <View style={{flex: 1}}>
+                    <ApplicationBar
+                        name={route.name}
+                        rightHandler={() => {
+                            navigator.push({
+                                name: 'Sale',
+                                index: 1
+                            })
+                        }}
+                    />
+                    <SaleList
+                        saleList={this.props.saleList}
+                        filterBy={this.props.filterBy}
+                        sortBy={this.props.sortBy}
+                        goToSale={(id) => {
+                            navigator.push({
+                                name: 'Sale',
+                                index: 1,
+                                id: id
+                            });
+                        }}
+                    />
+                </View>):(
+                <View style={{flex: 1}}>
+                    <ApplicationBar
+                        name={route.name}
+                        leftHandler={() => {
+                            navigator.pop();
+                        }}
+                    />
+                    <Sale
+                        saleList={this.props.saleList}
+                        params={{saleId: route.id}}
+                        goToSaleList={() => {
+                            navigator.pop();
+                        }}
+                    />
+                </View>
                 )
             )}
         />

@@ -1,5 +1,8 @@
 import MainRender from './MainRender';
 import MainBase from './MainBase';
+import {base} from '../../base/base';
+import FBSDKCore from 'react-native-fbsdkcore';
+let {FBSDKAccessToken} = FBSDKCore;
 
 class Main extends MainBase{
     constructor(props){
@@ -9,7 +12,10 @@ class Main extends MainBase{
             selectedTab: 'map',
             filterBy: '0',
             sortBy: '0'
-        }
+        };
+        FBSDKAccessToken.getCurrentAccessToken((token) => {
+            base.authWithOAuthToken('facebook', token.tokenString, ()=>{});
+        });
     }
     render(){
         return MainRender.call(this, this.props, this.state);

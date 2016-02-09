@@ -40,3 +40,6 @@ xcuserdata/
 *.moved-aside
 *.xccheckout
 *.xcscmblueprint
+
+#Pod
+Pods/

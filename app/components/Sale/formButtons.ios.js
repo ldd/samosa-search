@@ -3,26 +3,30 @@ import React,{View, Text, TouchableHighlight, StyleSheet} from 'react-native';
 const FormButtons = (props) => {
     return (
     <View>
+        {props.isCreating &&
         <TouchableHighlight onPress={()=>props.createHandler()}>
             <View style={styles.button}>
-            <Text style={styles.buttonText}>Create</Text>
+                <Text style={styles.buttonText}>Create</Text>
             </View>
-        </TouchableHighlight>
+        </TouchableHighlight>}
+        {props.isUpdating &&
         <TouchableHighlight onPress={()=>props.updateHandler()}>
             <View style={styles.button}>
             <Text style={styles.buttonText}>Update</Text>
             </View>
-        </TouchableHighlight>
+        </TouchableHighlight>}
+        {props.isConfirming &&
         <TouchableHighlight onPress={()=>props.confimHandler()}>
             <View style={styles.button}>
             <Text style={styles.buttonText}>Confirm</Text>
         </View>
-        </TouchableHighlight>
+        </TouchableHighlight>}
+        {props.isUpdating &&
         <TouchableHighlight onPress={()=>props.deleteHandler()}>
             <View style={styles.button}>
             <Text style={styles.buttonText}>Delete</Text>
             </View>
-        </TouchableHighlight>
+        </TouchableHighlight>}
         <TouchableHighlight onPress={()=>props.cancelHandler()}>
             <View style={styles.button}>
             <Text style={styles.buttonText}>Cancel</Text>
