@@ -4,30 +4,40 @@ const FormButtons = (props) => {
     return (
     <View>
         {props.isCreating &&
-        <TouchableHighlight onPress={()=>props.createHandler()}>
+        <TouchableHighlight
+            style={styles.buttonClicked}
+            onPress={()=>props.createHandler()}>
             <View style={styles.button}>
                 <Text style={styles.buttonText}>Create</Text>
             </View>
         </TouchableHighlight>}
         {props.isUpdating &&
-        <TouchableHighlight onPress={()=>props.updateHandler()}>
+        <TouchableHighlight
+            style={styles.buttonClicked}
+            onPress={()=>props.updateHandler()}>
             <View style={styles.button}>
             <Text style={styles.buttonText}>Update</Text>
             </View>
         </TouchableHighlight>}
         {props.isConfirming &&
-        <TouchableHighlight onPress={()=>props.confirmHandler()}>
+        <TouchableHighlight
+            style={styles.buttonClicked}
+            onPress={()=>props.confirmHandler()}>
             <View style={styles.button}>
             <Text style={styles.buttonText}>Confirm</Text>
         </View>
         </TouchableHighlight>}
         {props.isUpdating &&
-        <TouchableHighlight onPress={()=>props.deleteHandler()}>
+        <TouchableHighlight
+            style={styles.buttonClicked}
+            onPress={()=>props.deleteHandler()}>
             <View style={styles.button}>
             <Text style={styles.buttonText}>Delete</Text>
             </View>
         </TouchableHighlight>}
-        <TouchableHighlight onPress={()=>props.cancelHandler()}>
+        <TouchableHighlight
+            style={styles.buttonClicked}
+            onPress={()=>props.cancelHandler()}>
             <View style={styles.button}>
             <Text style={styles.buttonText}>Cancel</Text>
             </View>
@@ -37,16 +47,21 @@ const FormButtons = (props) => {
 var styles = StyleSheet.create({
     button: {
         height: 44,
-        flexDirection: 'row',
         borderRadius: 8,
         marginBottom: 10,
+        flexDirection: 'row',
         alignSelf: 'stretch',
         justifyContent: 'center',
         backgroundColor: '#007aff'
     },
+    buttonClicked: {
+        height: 44,
+        borderRadius: 8,
+        marginBottom: 10
+    },
     buttonText: {
         color: '#fff',
-        fontSize: 18,
+        fontSize: 16,
         alignSelf: 'center'
     }
 });
