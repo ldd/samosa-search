@@ -12,10 +12,12 @@ class Main extends MainBase{
             saleList: [],
             selectedTab: 'map',
             filterBy: '0',
-            sortBy: '0'
+            sortBy: '0',
+            loggedIn: false
         };
         FBSDKAccessToken.getCurrentAccessToken((token) => {
             if(token && token.tokenString){
+                this.setState({loggedIn: true});
                 base.authWithOAuthToken('facebook', token.tokenString, ()=>{});
             }
         });

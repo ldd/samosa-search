@@ -4,6 +4,7 @@ import {baseUtils} from '../../base/base';
 import LocationSelector from './locationSelector';
 import PriceSelector from './priceSelector';
 import TimeSelector from './timeSelector';
+import InformationField from './InformationField';
 import FormButtons from './formButtons';
 
 function SaleRender(props,state){
@@ -36,6 +37,11 @@ function SaleRender(props,state){
                     prevState.sale.time = +value;
                     return {sale: prevState.sale};
                 })}
+            />
+            <InformationField
+                value={typeof(state.info) === 'string'? state.info : ''}
+                disabled={!(isOwner || isCreating)}
+                handler={(value)=> this.setState({info: value})}
             />
             <FormButtons
                 isUpdating={isOwner && !isCreating}

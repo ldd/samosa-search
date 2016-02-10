@@ -17,7 +17,14 @@ import {base} from '../../base/base';
 import ApplicationBar from '../ApplicationBar';
 
 function MainRender(props, state){
-        return (
+    let _loginHandler = () => {
+        this.setState({loggedIn: true});
+        alert('Logged in');
+    };
+    let _processToken = (token) => {
+        base.authWithOAuthToken('facebook', token.tokenString,_loginHandler);
+    };
+    return (
             <View style={styles.mainContainer}>
                 <TabBarIOS style={styles.tabBar}>
                     <Icon.TabBarItem
@@ -74,7 +81,7 @@ function MainRender(props, state){
                         </View>
                     </Icon.TabBarItem>
                     <Icon.TabBarItem
-                        title='Log In'
+                        title={state.loggedIn? 'Log Out':'Log In'}
                         iconName='log-in'
                         selectedIconName='log-in'
                         selected={state.selectedTab === 'login'}
@@ -96,15 +103,12 @@ function MainRender(props, state){
                                   if (result.isCancelled) {
                                     alert('Login cancelled');
                                   } else {
-                                    FBSDKAccessToken.getCurrentAccessToken(function(token){
-                                        base.authWithOAuthToken('facebook', token.tokenString,function(){
-                                            alert('Logged in');
-                                        });
-                                    });
+                                    FBSDKAccessToken.getCurrentAccessToken(_processToken);
                                   }
                                 }
                               }}
                             onLogoutFinished={() => {
+                                this.setState({loggedIn: false});
                                 base.unauth().then(alert('Logged out.'));
                             }}
                             readPermissions={[]}
