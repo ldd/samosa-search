@@ -16,7 +16,7 @@ const FormButtons = (props) => {
             </View>
         </TouchableHighlight>}
         {props.isConfirming &&
-        <TouchableHighlight onPress={()=>props.confimHandler()}>
+        <TouchableHighlight onPress={()=>props.confirmHandler()}>
             <View style={styles.button}>
             <Text style={styles.buttonText}>Confirm</Text>
         </View>

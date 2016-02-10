@@ -14,7 +14,9 @@ class Main extends MainBase{
             sortBy: '0'
         };
         FBSDKAccessToken.getCurrentAccessToken((token) => {
-            base.authWithOAuthToken('facebook', token.tokenString, ()=>{});
+            if(token && token.tokenString){
+                base.authWithOAuthToken('facebook', token.tokenString, ()=>{});
+            }
         });
     }
     render(){

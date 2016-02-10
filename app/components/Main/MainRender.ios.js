@@ -89,26 +89,26 @@ function MainRender(props, state){
                         <ApplicationBar name='Authentication'/>
                         <FBSDKLoginButton
                             onLoginFinished={(error, result) => {
-            if (error) {
-              alert('Error logging in');
-            } else {
-              if (result.isCancelled) {
-                alert('Login cancelled');
-              } else {
-                FBSDKAccessToken.getCurrentAccessToken(function(token){
-                    base.authWithOAuthToken('facebook', token.tokenString,function(){
-                        alert('Logged in');
-                    });
-                });
-              }
-            }
-          }}
-                                onLogoutFinished={() => alert('Logged out.')}
-                                readPermissions={[]}
-                                publishPermissions={[]}/>
+                                if (error) {
+                                  alert('Error logging in');
+                                } else {
+                                  if (result.isCancelled) {
+                                    alert('Login cancelled');
+                                  } else {
+                                    FBSDKAccessToken.getCurrentAccessToken(function(token){
+                                        base.authWithOAuthToken('facebook', token.tokenString,function(){
+                                            alert('Logged in');
+                                        });
+                                    });
+                                  }
+                                }
+                              }}
+                            onLogoutFinished={() => {
+                                base.unauth().then(alert('Logged out.'));
+                            }}
+                            readPermissions={[]}
+                            publishPermissions={[]}/>
                         </View>
-
-
                     </Icon.TabBarItem>
                 </TabBarIOS>
             </View>
