@@ -1,55 +1,65 @@
-import React, {View, Text, TouchableHighlight, StyleSheet} from 'react-native';
+import React, {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const ApplicationBar = (props) => {
     return (
     <View style={styles.container}>
         <View style={styles.toolbar}>
+            <View style={styles.toolbarButtonContainer}>
             {props.leftHandler &&
-            <TouchableHighlight onPress={()=>props.leftHandler()}>
-                <Icon
-                    style={styles.toolbarButton}
-                    name='ios-arrow-back'
-                    size={14}
-                    color='#fff'
-                />
-            </TouchableHighlight>
+            <TouchableOpacity onPress={()=>props.leftHandler()}>
+                    <Icon
+                        style={styles.toolbarButton}
+                        name='ios-arrow-back'
+                        size={16}
+                    />
+            </TouchableOpacity>
             }
-            <Text style={styles.toolbarTitle}>{props.name}</Text>
+            </View>
+            <View style={styles.toolbarTitleContainer}>
+                <Text style={styles.toolbarTitle}>{props.name}</Text>
+            </View>
+            <View style={styles.toolbarButtonContainer}>
             {props.rightHandler &&
-            <TouchableHighlight onPress={()=>props.rightHandler()}>
-                <Icon
-                    style={styles.toolbarButton}
-                    name='ios-plus-empty'
-                    size={14}
-                    color='#fff'
-                />
-            </TouchableHighlight>
+            <TouchableOpacity onPress={()=>props.rightHandler()}>
+                    <Icon
+                        style={styles.toolbarButton}
+                        name='ios-plus-empty'
+                        size={16}
+                    />
+            </TouchableOpacity>
             }
+            </View>
         </View>
     </View>
     );
 };
 const styles = StyleSheet.create({
     container:{
-        //flex: 1
+        backgroundColor:'#007aff'
     },
     toolbar:{
-        backgroundColor:'#007aff',
         paddingTop:30,
         paddingBottom:10,
-        flexDirection:'row'
+        flexDirection:'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        flex: 1
+    },
+    toolbarButtonContainer:{
+        flex: 0.2
     },
     toolbarButton:{
-        width: 50,
         color:'#fff',
-        textAlign:'center'
+        textAlign: 'center'
+    },
+    toolbarTitleContainer:{
+        flex: 0.6
     },
     toolbarTitle:{
         color:'#fff',
-        textAlign:'center',
         fontWeight:'bold',
-        flex:1
+        textAlign: 'center'
     }
 });
 export default ApplicationBar;
