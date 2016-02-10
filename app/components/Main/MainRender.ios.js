@@ -87,6 +87,7 @@ function MainRender(props, state){
 
                     <View>
                         <ApplicationBar name='Authentication'/>
+                        <View style={styles.facebookButtonContainer}>
                         <FBSDKLoginButton
                             onLoginFinished={(error, result) => {
                                 if (error) {
@@ -108,6 +109,7 @@ function MainRender(props, state){
                             }}
                             readPermissions={[]}
                             publishPermissions={[]}/>
+                            </View>
                         </View>
                     </Icon.TabBarItem>
                 </TabBarIOS>
@@ -150,6 +152,10 @@ const styles = StyleSheet.create({
     },
     tabText: {
         color: 'white'
+    },
+    facebookButtonContainer:{
+        alignSelf: 'center',
+        marginTop: 10
     }
 });
 
