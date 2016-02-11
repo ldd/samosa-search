@@ -12,5 +12,4 @@ class SaleList extends SaleListBase{
         return SaleListRender.call(this, this.props, this.state);
     }
 }
-
 export default SaleList;

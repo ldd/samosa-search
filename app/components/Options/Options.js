@@ -9,5 +9,4 @@ class Options extends Component{
         return OptionsRender.call(this, this.props, this.state);
     }
 }
-
 export default Options;

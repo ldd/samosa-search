@@ -1,12 +1,12 @@
 import React from 'react';
-import AppBar from '../../../node_modules/material-ui/lib/app-bar';
-import LeftNav from '../../../node_modules/material-ui/lib/left-nav';
-import SaleList from './../SaleList/SaleList';
+import AppBar from 'material-ui/lib/app-bar';
+import LeftNav from 'material-ui/lib/left-nav';
+import NavigationExpandMore from 'material-ui/lib/svg-icons/navigation/expand-more';
+import NavigationClose from 'material-ui/lib/svg-icons/navigation/close';
+import IconButton from 'material-ui/lib/icon-button';
 
-import IconButton from '../../../node_modules/material-ui/lib/icon-button';
-import NavigationExpandMore from '../../../node_modules/material-ui/lib/svg-icons/navigation/expand-more';
+import SaleList from './../SaleList/SaleList';
 import Options from './../Options/Options';
-import NavigationClose from '../../../node_modules/material-ui/lib/svg-icons/navigation/close';
 
 class NavigationBar extends React.Component{
     constructor(props){
@@ -32,7 +32,8 @@ class NavigationBar extends React.Component{
                     <NavigationExpandMore/>
                 </IconButton>}
             />
-            {this.state.optionsOpen? <Options
+            {this.state.optionsOpen?
+            <Options
                 filterBy={this.props.filterBy}
                 sortBy={this.props.sortBy}
                 changeFilter={(value)=>this.props.changeFilter(value)}
@@ -48,5 +49,4 @@ class NavigationBar extends React.Component{
         )
     }
 }
-
 export default NavigationBar;

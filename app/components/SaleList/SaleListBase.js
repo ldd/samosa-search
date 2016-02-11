@@ -5,13 +5,13 @@ import {baseUtils} from '../../base/base';
 class SaleListBase extends React.Component{
     constructor(props){
         super(props);
-        //this.getDistances= this.getDistances.bind(this);
-        //this.parseDistance = this.parseDistance.bind(this);
     }
     componentWillMount(){
         this.getDistances(this.props.saleList);
     }
     componentWillReceiveProps(nextProps){
+        //we check if the new sale list has changed.
+        //only if it does, we get the distances (either from cache or we fetch them)
         if (nextProps.saleList !== this.props.saleList) {
             this.getDistances(nextProps.saleList);
         }

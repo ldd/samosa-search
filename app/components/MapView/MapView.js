@@ -24,5 +24,4 @@ class SimpleMap extends React.Component {
         return MapViewRender.call(this, this.props, this.state);
     }
 }
-
 export default SimpleMap;
