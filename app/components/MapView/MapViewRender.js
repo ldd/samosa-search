@@ -1,7 +1,8 @@
 import React from 'react';
-import GoogleMapLoader from '../../../node_modules/react-google-maps/lib/GoogleMapLoader';
-import GoogleMap from '../../../node_modules/react-google-maps/lib/GoogleMap';
-import Marker from '../../../node_modules/react-google-maps/lib/Marker';
+import GoogleMapLoader from 'react-google-maps/lib/GoogleMapLoader';
+import GoogleMap from 'react-google-maps/lib/GoogleMap';
+import Marker from 'react-google-maps/lib/Marker';
+
 import SamosaSearchAPI from '../../api/samosaSearchAPI';
 
 function MapViewRender(props,state){
@@ -35,6 +36,7 @@ function MapViewRender(props,state){
                 }}
                 defaultZoom={16}
                 defaultCenter={{lat: state.lat, lng: state.lon}}
+                center={{lat: state.lat, lng: state.lon}}
                 onClick={()=>{}}>
                 {/*we get tags from the sale list, by getting unique keys.
                    then we display markers from these tags */}

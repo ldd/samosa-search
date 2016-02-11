@@ -7,7 +7,7 @@ const InformationField = ({defaultValue, value, disabled, handler}) => (
         <TextField
             defaultValue={defaultValue}
             value={value}
-            fullWidth={true}
+            fullWidth={true}//make sure we take the width of its parent
             disabled={disabled}
             onChange={handler}
             rows={2}

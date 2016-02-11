@@ -33,6 +33,7 @@ class Sale extends SaleBase{
         }
     }
     componentWillReceiveProps(nextProps){
+        //if the sale id doesn't match, we unbind and bind anew using the new sale id
         if(nextProps.params.saleId !== this.props.params.saleId){
             base.removeBinding(this.infoRef);
             if(nextProps.params.saleId){

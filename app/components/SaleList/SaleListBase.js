@@ -5,13 +5,13 @@ import {baseUtils} from '../../base/base';
 class SaleListBase extends React.Component{
     constructor(props){
         super(props);
-        //this.getDistances= this.getDistances.bind(this);
-        //this.parseDistance = this.parseDistance.bind(this);
     }
     componentWillMount(){
         this.getDistances(this.props.saleList);
     }
     componentWillReceiveProps(nextProps){
+        //we check if the new sale list has changed.
+        //only if it does, we get the distances (either from cache or we fetch them)
         if (nextProps.saleList !== this.props.saleList) {
             this.getDistances(nextProps.saleList);
         }
@@ -22,8 +22,17 @@ class SaleListBase extends React.Component{
         }
     }
     parseDistance(loc){
+        //we make sure that distance exists
         let distance = this.state.distances && this.state.distances[loc] && this.state.distances[loc].distance;
-        return distance < 1? distance*1000 + ' m': distance + ' km';
+        //if it is a (finite) number and closeby, we give the distance in meters
+        //otherwise we give the distance in kilometers
+        if(Number.isFinite(distance)){
+            return distance < 1? distance*1000 + ' m': distance + ' km';
+        }
+        //if it is not a finite number, we return '? m'
+        else{
+            return '? m';
+        }
     }
     filter(caseName, saleList){
         switch(caseName){

@@ -1,9 +1,10 @@
 import React from 'react';
+import FloatingActionButton from 'material-ui/lib/floating-action-button';
+import ContentAdd from 'material-ui/lib/svg-icons/content/add';
+
 import {baseUtils} from '../../base/base';
-import FloatingActionButton from '../../../node_modules/material-ui/lib/floating-action-button';
-import ContentAdd from '../../../node_modules/material-ui/lib/svg-icons/content/add';
 import NavigationBar from './../NavigationBar/NavigationBarController';
-import ApplicationBar from './../ApplicationBar';
+import ApplicationBar from './../ApplicationBar/ApplicationBar';
 
 function MainRender(props, state){
     let isLoggedIn = baseUtils.isLoggedIn();
@@ -31,14 +32,13 @@ function MainRender(props, state){
             {isLoggedIn && isRootRoute && <FloatingActionButton
                 style={{position: 'absolute', bottom:5, right:5}}
                 onClick={()=>{
-            this.setState({open: false});
-            props.history.pushState(null, '/sale')
-            }}>
+                    this.setState({open: false});
+                    props.history.pushState(null, '/sale')
+                }}>
                 <ContentAdd />
             </FloatingActionButton>
             }
         </div>
     )
 }
-
 export default MainRender;
