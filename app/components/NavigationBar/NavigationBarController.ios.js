@@ -6,7 +6,7 @@ import React, {
 } from 'react-native';
 import SaleList from '../SaleList/SaleList';
 import Sale from '../Sale/Sale';
-import ApplicationBar from '../ApplicationBar';
+import ApplicationBar from '../ApplicationBar/ApplicationBar';
 class NavigationBarController extends Component{
     constructor(props){
         super(props);

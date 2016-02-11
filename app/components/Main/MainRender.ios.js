@@ -14,7 +14,7 @@ import MapView from './../MapView/MapView';
 import NavigationBarController from './../NavigationBar/NavigationBarController';
 import Options from './../Options/Options';
 import {base} from '../../base/base';
-import ApplicationBar from '../ApplicationBar';
+import ApplicationBar from '../ApplicationBar/ApplicationBar';
 
 function MainRender(props, state){
     let _loginHandler = () => {
