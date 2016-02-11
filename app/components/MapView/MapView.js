@@ -14,7 +14,7 @@ class SimpleMap extends React.Component {
         // or we use the default position
         SamosaSearchAPI.getLocation((pos)=>{this.setState({
             lat: pos.coords.latitude,
-            long: pos.coords.longitude
+            lon: pos.coords.longitude
         })}, ()=>{this.setState({
             lat: SamosaSearchAPI.defaultLocation.lat,
             lon: SamosaSearchAPI.defaultLocation.lon
