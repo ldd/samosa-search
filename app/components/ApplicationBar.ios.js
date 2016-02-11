@@ -11,7 +11,7 @@ const ApplicationBar = (props) => {
                     <Icon
                         style={styles.toolbarButton}
                         name='ios-arrow-back'
-                        size={16}
+                        size={18}
                     />
             </TouchableOpacity>
             }
@@ -24,8 +24,8 @@ const ApplicationBar = (props) => {
             <TouchableOpacity onPress={()=>props.rightHandler()}>
                     <Icon
                         style={styles.toolbarButton}
-                        name='ios-plus-empty'
-                        size={16}
+                        name='ios-plus-outline'
+                        size={18}
                     />
             </TouchableOpacity>
             }

@@ -26,7 +26,7 @@ function MainRender(props, state){
     };
     return (
             <View style={styles.mainContainer}>
-                <TabBarIOS style={styles.tabBar}>
+                <TabBarIOS style={styles.subContainer}>
                     <Icon.TabBarItem
                         title='Map'
                         iconName='ios-location-outline'
@@ -37,7 +37,7 @@ function MainRender(props, state){
                         selectedTab: 'map'
                     });
                 }}>
-                        <View style={{flex: 1}}>
+                        <View style={styles.subContainer}>
                             <ApplicationBar name='Map'/>
                             <MapView
                                 saleList={state.saleList}
@@ -70,7 +70,7 @@ function MainRender(props, state){
                             selectedTab: 'settings'
                         });
                     }}>
-                        <View style={{flex:1}}>
+                        <View style={styles.subContainer}>
                             <ApplicationBar name='Options'/>
                             <Options
                                 filterBy={state.filterBy}
@@ -92,7 +92,7 @@ function MainRender(props, state){
                     }}>
 
 
-                    <View>
+                    <View style={styles.subContainer}>
                         <ApplicationBar name='Authentication'/>
                         <View style={styles.facebookButtonContainer}>
                         <FBSDKLoginButton
@@ -125,41 +125,13 @@ const styles = StyleSheet.create({
     mainContainer:{
         flex: 1
     },
-    tabBar:{
+    subContainer:{
         flex: 1
-    },
-    toolbar:{
-        backgroundColor:'#81c04d',
-        paddingTop:30,
-        paddingBottom:10,
-        flexDirection:'row'
-    },
-    toolbarButton:{
-        width: 50,
-        color:'#fff',
-        textAlign:'center'
-    },
-    toolbarTitle:{
-        color:'#fff',
-        textAlign:'center',
-        fontWeight:'bold',
-        flex:1
-    },
-    map: {
-        flex: 1
-    },
-
-    tabContent: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    tabText: {
-        color: 'white'
     },
     facebookButtonContainer:{
-        alignSelf: 'center',
-        marginTop: 10
+        flex: 1,
+        justifyContent: 'center',
+        alignSelf: 'center'
     }
 });
 
