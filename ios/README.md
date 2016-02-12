@@ -27,7 +27,7 @@ Make sure that you can run the installation script and run it
 chmox u+x ./scripts/install-ios.sh
 ./scripts/install-ios.sh
 ```
-At this point, you may want to make sure that have the necessary fonts installed by following the manual part of [this guide](https://github.com/oblador/react-native-vector-icons)
+At this point, you may want to make sure that you have the necessary fonts installed by following the manual part of [this guide.](https://github.com/oblador/react-native-vector-icons)
 
 Finally, run 
 `node node_modules/react-native/local-cli/cli.js start`, open the file `ios/SamosaSearch.xcworkspace` in XCode and start the simulator.
@@ -36,24 +36,29 @@ Finally, run
 # Features
 
 You can see a map with the sales locations
+
 ![see map](https://giant.gfycat.com/DismalMenacingKillerwhale.gif)
 
 
 You can see a list of sales, sort them and/or filter them
+
 ![see list](https://zippy.gfycat.com/MenacingSelfassuredAsianwaterbuffalo.gif)
 ![sort by](https://zippy.gfycat.com/AccomplishedBabyishCattle.gif)
 ![filter by](https://zippy.gfycat.com/FocusedVerifiableGangesdolphin.gif)
 
 
 You can add sales
+
 ![add sale](https://fat.gfycat.com/GleefulFaintFoxterrier.gif)
 
 
 The sale list and map auto update when someone else adds a new sale
+
 ![auto update](https://zippy.gfycat.com/WeeklyAshamedGonolek.gif)
 
 
 Finally, you need to authenticate using facebook
+
 ![authenticate](https://fat.gfycat.com/OrangeMiniatureAntelopegroundsquirrel.gif)
 
 
