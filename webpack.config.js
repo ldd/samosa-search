@@ -2,7 +2,7 @@
 var webpack = require('webpack');
 
 module.exports = {
-    entry: './app/App.js',
+    entry: './index.js',
     output:{
         path: './public',
         filename: 'bundle.js',
@@ -36,6 +36,9 @@ module.exports = {
         ]
     },
     plugins:[
+        new webpack.ProvidePlugin({
+            'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+        }),
         new webpack.DefinePlugin({
             DEBUG: process.env.NODE_ENV !== 'production',
             PRODUCTION: process.env.NODE_ENV === 'production'

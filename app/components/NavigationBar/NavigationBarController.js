@@ -1,20 +1,18 @@
 import React from 'react';
-import AppBar from '../../../node_modules/material-ui/lib/app-bar';
-import LeftNav from '../../../node_modules/material-ui/lib/left-nav';
-import SaleList from './SaleList';
+import AppBar from 'material-ui/lib/app-bar';
+import LeftNav from 'material-ui/lib/left-nav';
+import NavigationExpandMore from 'material-ui/lib/svg-icons/navigation/expand-more';
+import NavigationClose from 'material-ui/lib/svg-icons/navigation/close';
+import IconButton from 'material-ui/lib/icon-button';
 
-import IconButton from '../../../node_modules/material-ui/lib/icon-button';
-import NavigationExpandMore from '../../../node_modules/material-ui/lib/svg-icons/navigation/expand-more';
-import Options from './Options';
-import NavigationClose from '../../../node_modules/material-ui/lib/svg-icons/navigation/close';
+import SaleList from './../SaleList/SaleList';
+import Options from './../Options/Options';
 
 class NavigationBar extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            optionsOpen: false,
-            filterBy: 'all',
-            sortBy: 'none'
+            optionsOpen: false
         }
     }
     render(){
@@ -34,14 +32,15 @@ class NavigationBar extends React.Component{
                     <NavigationExpandMore/>
                 </IconButton>}
             />
-            {this.state.optionsOpen? <Options
-                filterBy={this.state.filterBy}
-                sortBy={this.state.sortBy}
-                changeFilter={(value)=>this.setState({filterBy: value})}
-                changeSort={(value)=>this.setState({sortBy: value})}
+            {this.state.optionsOpen?
+            <Options
+                filterBy={this.props.filterBy}
+                sortBy={this.props.sortBy}
+                changeFilter={(value)=>this.props.changeFilter(value)}
+                changeSort={(value)=>this.props.changeSort(value)}
             />:<SaleList
-                filterBy={this.state.filterBy}
-                sortBy={this.state.sortBy}
+                filterBy={this.props.filterBy}
+                sortBy={this.props.sortBy}
                 closeHandler={this.props.closeHandler}
                 saleList={this.props.saleList}
                 history={this.props.history}
@@ -50,5 +49,4 @@ class NavigationBar extends React.Component{
         )
     }
 }
-
 export default NavigationBar;

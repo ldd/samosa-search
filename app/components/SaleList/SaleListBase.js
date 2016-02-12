@@ -1,21 +1,17 @@
 import React from 'react';
-import AppConstants from '../../constants/constants';
 import SamosaSearchAPI from '../../api/samosaSearchAPI';
-import List from '../../../node_modules/material-ui/lib/lists/list';
-import ListItem from '../../../node_modules/material-ui/lib/lists/list-item';
-import {base} from '../../base/base';
+import {baseUtils} from '../../base/base';
 
-class SaleList extends React.Component{
+class SaleListBase extends React.Component{
     constructor(props){
         super(props);
-        this.state = {
-            distances: null
-        };
     }
     componentWillMount(){
         this.getDistances(this.props.saleList);
     }
     componentWillReceiveProps(nextProps){
+        //we check if the new sale list has changed.
+        //only if it does, we get the distances (either from cache or we fetch them)
         if (nextProps.saleList !== this.props.saleList) {
             this.getDistances(nextProps.saleList);
         }
@@ -26,17 +22,26 @@ class SaleList extends React.Component{
         }
     }
     parseDistance(loc){
+        //we make sure that distance exists
         let distance = this.state.distances && this.state.distances[loc] && this.state.distances[loc].distance;
-        return distance < 1? distance*1000 + ' m': distance + ' km';
+        //if it is a (finite) number and closeby, we give the distance in meters
+        //otherwise we give the distance in kilometers
+        if(Number.isFinite(distance)){
+            return distance < 1? distance*1000 + ' m': distance + ' km';
+        }
+        //if it is not a finite number, we return '? m'
+        else{
+            return '? m';
+        }
     }
     filter(caseName, saleList){
         switch(caseName){
-            case 'isOwner':
-                let uid = base.getUID();
+            case '1'://isOwner
+                let uid = baseUtils.getUID();
                 return saleList.filter(el => el.owner === uid);
-            case 'isConfirmed':
+            case '2'://isConfirmed
                 return saleList.filter(el => el.confirmed);
-            case 'isUnconfirmed':
+            case '3'://isUnconfirmed
                 return saleList.filter(el => !el.confirmed);
             default:
                 return Array.from(saleList);
@@ -44,30 +49,14 @@ class SaleList extends React.Component{
     }
     applySort(caseName, saleList){
         switch(caseName){
-            case 'time':
+            case '1'://by time
                 return saleList.sort((el1, el2) => el1.time > el2.time);
-            case 'loc':
+            case '2'://by location
                 return saleList.sort((el1, el2) => el1.loc > el2.loc);
             default:
                 return saleList;
         }
     }
-    render(){
-        let saleList = this.filter(this.props.filterBy,this.props.saleList);
-        this.applySort(this.props.sortBy, saleList);
-        return (
-        <List>
-            {saleList.map((sale, i) => <ListItem
-                onTouchTap={()=>{
-                this.props.history.pushState(null, `/sale/${sale.key}`);
-                this.props.closeHandler();
-                }}
-                primaryText={`${AppConstants.locations[sale.loc]} (${AppConstants.times[sale.time]})`}
-                secondaryText={this.parseDistance(sale.loc)}
-                key={i}/>)}
-        </List>
-        )
-    }
 }
 
-export default SaleList;
+export default SaleListBase;

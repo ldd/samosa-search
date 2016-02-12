@@ -8,6 +8,12 @@ Comments, questions, suggestions?
 
 
 # Contributing
+First, perform the appropriate third-party setup by following these instructions:
+*  Create an account on [Firebase](https://www.firebase.com)
+* follow their [guide to use facebook login](https://www.firebase.com/docs/web/guide/login/facebook.html) (make sure to create a facebook app)
+* Join [MapZen](https://mapzen.com/developers) and get a  time distance matrix key
+* Add your Firebase url and MapZen key to `app/constants/providers.js`
+
 Make sure that you have ```node``` and ```npm``` installed.
 If you do not have ```webpack``` and ```webpack-dev-server``` installed globally, install them:
 ```
@@ -24,13 +30,8 @@ npm install
 ```
 serve using webpack-dev-server:
 ```
-webpack-dev-server --define "FIREBASE_URL"='"<YOUR_URL>"' \
---define "BING_KEY"='"<A_KEY>"'\
---define "MAPZEN_MATRIX_KEY"='"<A_KEY>"'
+webpack-dev-server
 ```
-**tip:** Notice the weird ```""``` wrapped inside ```''``` . This is NOT a coincidence. 
-
-This is good enough for development.
 
 # License
 MIT
