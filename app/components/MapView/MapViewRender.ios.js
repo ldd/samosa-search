@@ -1,19 +1,16 @@
 'use strict';
-import React, {
-    StyleSheet,
-    MapView,
-} from 'react-native';
+import React, {MapView, StyleSheet} from 'react-native';
 import SamosaSearchAPI from '../../api/samosaSearchAPI';
 function MapViewRender(props,state){
     return (
         <MapView
             style={styles.map}
             initialRegion={{
-                            latitude: state.lat,
-                            longitude: state.lon,
-                            latitudeDelta: 0.01,
-                            longitudeDelta: 0.01
-                        }}
+                latitude: state.lat,
+                longitude: state.lon,
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.01
+            }}
             region={{
                 latitude: state.lat,
                 longitude: state.lon,

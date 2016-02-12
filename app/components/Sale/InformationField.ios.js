@@ -1,8 +1,10 @@
 import React, {View, Text, TextInput, StyleSheet} from 'react-native';
 
-const InformationField = ({defaultValue, value, disabled, handler}) => {
+const InformationField = ({value, disabled, handler}) => {
     return (
         <View>
+            {/* we either show the text information of an existing sale
+                or ask the user to provide the information of a new sale */}
             <Text style={styles.textLabel}>
                 INFORMATION
             </Text>

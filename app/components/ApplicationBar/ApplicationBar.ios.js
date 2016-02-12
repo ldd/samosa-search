@@ -5,6 +5,7 @@ const ApplicationBar = (props) => {
     return (
     <View style={styles.container}>
         <View style={styles.toolbar}>
+            {/* left button (go back button) */}
             <View style={styles.toolbarButtonContainer}>
             {props.leftHandler &&
             <TouchableOpacity onPress={()=>props.leftHandler()}>
@@ -16,9 +17,11 @@ const ApplicationBar = (props) => {
             </TouchableOpacity>
             }
             </View>
+            {/* center title */}
             <View style={styles.toolbarTitleContainer}>
                 <Text style={styles.toolbarTitle}>{props.name}</Text>
             </View>
+            {/* right button (add button) */}
             <View style={styles.toolbarButtonContainer}>
             {props.rightHandler &&
             <TouchableOpacity onPress={()=>props.rightHandler()}>
@@ -47,6 +50,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     toolbarButtonContainer:{
+        //we make sure 2 buttons cover the rest of the row
         flex: 0.2
     },
     toolbarButton:{

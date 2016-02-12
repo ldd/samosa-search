@@ -1,15 +1,11 @@
 'use strict';
-import React, {
-    StyleSheet,
-    TabBarIOS,
-    View
-} from 'react-native';
+import React, {StyleSheet, TabBarIOS, View} from 'react-native';
 import FBSDKLogin from 'react-native-fbsdklogin';
 let {FBSDKLoginButton} = FBSDKLogin;
 import FBSDKCore from 'react-native-fbsdkcore';
 let {FBSDKAccessToken} = FBSDKCore;
-
 import Icon from 'react-native-vector-icons/Ionicons';
+
 import MapView from './../MapView/MapView';
 import NavigationBarController from './../NavigationBar/NavigationBarController';
 import Options from './../Options/Options';
@@ -21,9 +17,8 @@ function MainRender(props, state){
         this.setState({loggedIn: true});
         alert('Logged in');
     };
-    let _processToken = (token) => {
-        base.authWithOAuthToken('facebook', token.tokenString,_loginHandler);
-    };
+    let _processToken = (token) => base.authWithOAuthToken('facebook', token.tokenString,_loginHandler);
+    let _changeToTab = (tabName) => this.setState({selectedTab: tabName});
     return (
             <View style={styles.mainContainer}>
                 <TabBarIOS style={styles.subContainer}>
@@ -32,16 +27,11 @@ function MainRender(props, state){
                         iconName='ios-location-outline'
                         selectedIconName='ios-location'
                         selected={state.selectedTab === 'map'}
-                        onPress={() => {
-                    this.setState({
-                        selectedTab: 'map'
-                    });
-                }}>
+                        onPress={() => _changeToTab('map')}
+                    >
                         <View style={styles.subContainer}>
                             <ApplicationBar name='Map'/>
-                            <MapView
-                                saleList={state.saleList}
-                            />
+                            <MapView saleList={state.saleList}/>
                         </View>
                     </Icon.TabBarItem>
                     <Icon.TabBarItem
@@ -49,11 +39,8 @@ function MainRender(props, state){
                         iconName='ios-list-outline'
                         selectedIconName='ios-list'
                         selected={state.selectedTab === 'sales'}
-                        onPress={() => {
-                        this.setState({
-                            selectedTab: 'sales'
-                        });
-                    }}>
+                        onPress={() => _changeToTab('sales')}
+                    >
                         <NavigationBarController
                             saleList={state.saleList}
                             filterBy={state.filterBy}
@@ -65,11 +52,8 @@ function MainRender(props, state){
                         iconName='ios-gear-outline'
                         selectedIconName='ios-gear'
                         selected={state.selectedTab === 'settings'}
-                        onPress={() => {
-                        this.setState({
-                            selectedTab: 'settings'
-                        });
-                    }}>
+                        onPress={() => _changeToTab('settings')}
+                    >
                         <View style={styles.subContainer}>
                             <ApplicationBar name='Options'/>
                             <Options
@@ -85,34 +69,30 @@ function MainRender(props, state){
                         iconName='log-in'
                         selectedIconName='log-in'
                         selected={state.selectedTab === 'login'}
-                        onPress={() => {
-                        this.setState({
-                            selectedTab: 'login'
-                        });
-                    }}>
-
-
-                    <View style={styles.subContainer}>
-                        <ApplicationBar name='Authentication'/>
-                        <View style={styles.facebookButtonContainer}>
-                        <FBSDKLoginButton
-                            onLoginFinished={(error, result) => {
-                                if (error) {
-                                  alert('Error logging in');
-                                } else {
-                                  if (result.isCancelled) {
-                                    alert('Login cancelled');
-                                  } else {
-                                    FBSDKAccessToken.getCurrentAccessToken(_processToken);
-                                  }
-                                }
-                              }}
-                            onLogoutFinished={() => {
-                                this.setState({loggedIn: false});
-                                base.unauth().then(alert('Logged out.'));
-                            }}
-                            readPermissions={[]}
-                            publishPermissions={[]}/>
+                        onPress={() => _changeToTab('login')}
+                    >
+                        <View style={styles.subContainer}>
+                            <ApplicationBar name='Authentication'/>
+                            <View style={styles.facebookButtonContainer}>
+                                <FBSDKLoginButton
+                                    onLoginFinished={(error, result) => {
+                                        if (error) {
+                                          alert('Error logging in');
+                                        } else {
+                                          if (result.isCancelled) {
+                                            alert('Login cancelled');
+                                          } else {
+                                            FBSDKAccessToken.getCurrentAccessToken(_processToken);
+                                          }
+                                        }
+                                      }}
+                                    onLogoutFinished={() => {
+                                        this.setState({loggedIn: false});
+                                        base.unauth().then(alert('Logged out.'));
+                                    }}
+                                    readPermissions={[]}
+                                    publishPermissions={[]}
+                                />
                             </View>
                         </View>
                     </Icon.TabBarItem>

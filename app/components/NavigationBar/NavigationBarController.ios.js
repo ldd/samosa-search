@@ -1,9 +1,5 @@
 'use strict';
-import React, {
-    Component,
-    Navigator,
-    View
-} from 'react-native';
+import React, {Component, Navigator, View} from 'react-native';
 import SaleList from '../SaleList/SaleList';
 import Sale from '../Sale/Sale';
 import ApplicationBar from '../ApplicationBar/ApplicationBar';
@@ -11,6 +7,7 @@ class NavigationBarController extends Component{
     constructor(props){
         super(props);
     }
+    //only two routes: 0 (sale list) and 1 (sale edit, add, etc)
     render(){
     return (
         <Navigator

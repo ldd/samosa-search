@@ -1,11 +1,6 @@
 'use strict';
 import React from 'react-native';
-let {
-    SegmentedControlIOS,
-    View,
-    Text,
-    StyleSheet
-    } = React;
+let {SegmentedControlIOS, View, Text, StyleSheet} = React;
 import AppConstants from '../../constants/constants';
 
 function Options(props){
@@ -16,10 +11,7 @@ function Options(props){
                 <SegmentedControlIOS
                     selectedIndex={+props.sortBy}
                     onChange={(event)=>props.changeSort(''+event.nativeEvent.selectedSegmentIndex)}
-                    values={[
-                        AppConstants.sorters[0],
-                        AppConstants.sorters[1],
-                        AppConstants.sorters[2]]}
+                    values={AppConstants.sorters}
                 />
             </View>
             <View style={styles.option}>
@@ -27,11 +19,7 @@ function Options(props){
                 <SegmentedControlIOS
                     selectedIndex={+props.filterBy}
                     onChange={(event)=>props.changeFilter(''+event.nativeEvent.selectedSegmentIndex)}
-                    values={[
-                        AppConstants.filters[0],
-                        AppConstants.filters[1],
-                        AppConstants.filters[2],
-                        AppConstants.filters[3]]}
+                    values={AppConstants.filters}
                 />
             </View>
         </View>

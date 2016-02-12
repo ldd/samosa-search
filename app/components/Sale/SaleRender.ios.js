@@ -8,10 +8,13 @@ import InformationField from './InformationField';
 import FormButtons from './formButtons';
 
 function SaleRender(props,state){
+        //these checks will be used to hide/show certain action buttons
         let isCreating = !props.params.saleId;
         let isOwner = state.sale.owner === baseUtils.getUID();
         let isLoggedIn = baseUtils.isLoggedIn();
         let isConfirmed = state.sale.confirmed;
+        //we return a scrollable view because we expect the sale selectors and information field
+        //to take more space than the height of the device
         return (
         <View style={styles.wrapper}><ScrollView><View style={styles.innerWrapper}>
             <LocationSelector
