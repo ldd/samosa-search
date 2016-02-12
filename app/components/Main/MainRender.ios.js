@@ -42,6 +42,7 @@ function MainRender(props, state){
                         onPress={() => _changeToTab('sales')}
                     >
                         <NavigationBarController
+                            loggedIn={state.loggedIn}
                             saleList={state.saleList}
                             filterBy={state.filterBy}
                             sortBy={state.sortBy}

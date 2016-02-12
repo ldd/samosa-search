@@ -20,6 +20,7 @@ class NavigationBarController extends Component{
                 <View style={{flex: 1}}>
                     <ApplicationBar
                         name={route.name}
+                        loggedIn={this.props.loggedIn}
                         rightHandler={() => {
                             navigator.push({
                                 name: 'Sale',

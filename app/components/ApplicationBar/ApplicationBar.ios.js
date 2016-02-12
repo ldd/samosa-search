@@ -23,7 +23,9 @@ const ApplicationBar = (props) => {
             </View>
             {/* right button (add button) */}
             <View style={styles.toolbarButtonContainer}>
-            {props.rightHandler &&
+            {/* regardless of where the application bar is used,
+                we always check if the user is logged in */}
+            {props.rightHandler && props.loggedIn &&
             <TouchableOpacity onPress={()=>props.rightHandler()}>
                     <Icon
                         style={styles.toolbarButton}
